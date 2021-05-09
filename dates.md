@@ -14,8 +14,8 @@
 |discuss results (representation)|||
 |----------------------------------------|------|
 |models to try (do with or without pca/lda)|||
-|mvg|||
-|Naive bayes|||
+|mvg| simone | 15-05|
+|Naive bayes| alfredo|15-05|
 |Tied Covariance|||
 |Kfold Crossvalidation|||
 |----------------------------------------|------|
