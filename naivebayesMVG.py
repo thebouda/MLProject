@@ -101,14 +101,43 @@ def naivebayes(DTrain,LTrain,DTest,LTest):
   SJoint=SMatrix # because we already mutiplied by the prior
 
   # we et the max value in order to predict of the prorbabilities calcualted 
-  Predic= numpy.argmax(SJoint,axis=0)
-  Acc= LTest ==Predic # we get the values that are the same as we expect
+  predic= numpy.argmax(SJoint,axis=0)
+  acc= LTest ==predic # we get the values that are the same as we expect
   # count how many are true to get the accuracy
-  AccuracyPred= sum(Acc==True)/numpy.size(Predic)
+  accuracyPred= sum(acc==True)/numpy.size(predic)
   #err=1-AccuracyPre
 
-  return AccuracyPred
+  return accuracyPred
 
+def secMethodTiedCov(var1,var2,D,L):
+    tiedVar=0
+    newVars= [var1,var2]
+    for cClass in range(numpy.size(list(set(L)))): #with set we get the distinct values, we need it for the number of classes
+        tiedVar= tiedVar + newVars[cClass]*numpy.size(D[:,L==cClass],1) # Nc*Variance for that class
+    tiedVar = tiedVar / numpy.size(D,1)
+    return tiedVar
+
+def tiedCov(DTrain,LTrain,DTest,LTest):
+
+  (mu0,var0),(mu1,var1)= computeVarMed(DTrain,LTrain)
+  defVar= secMethodTiedCov(var0,var1,DTrain,LTrain)
+
+  # prior0 = calculatePriors(DTrain,LTrain,0)
+  prior0 =0.5
+  prior1 =1- prior0
+
+  likeVar1=logpdf_GAU_ND(DTest,mu0,defVar)*prior1
+  likeVar2=logpdf_GAU_ND(DTest,mu1,defVar) *prior0
+
+  S=numpy.vstack((likeVar1,likeVar2)) #S matrix
+  # SJoint=S*1/2
+  SJoint=S
+  predic= numpy.argmax(SJoint,axis=0)
+  acc= LTest==predic # we get the values that are the same as we expect
+  # count how many are true to get the accuracy
+  accuracyPred= sum(acc==True)/numpy.size(predic)
+
+  return accuracyPred
 
 if  __name__ == '__main__':
     # loaded data
@@ -117,6 +146,7 @@ if  __name__ == '__main__':
 
     accMVG = mvg(DTrain,LTrain,DTest,LTest)
     accNaiveBayes = naivebayes(DTrain,LTrain,DTest,LTest)
+    accTiedCov = tiedCov(DTrain,LTrain,DTest,LTest)
     #INTERESTING HOW IF we take 0.5 insteade of Nc/N we get better results
     #it seems that asigning 0.5 probability is fair between having 
 
