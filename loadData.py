@@ -228,6 +228,44 @@ def NaiveBayesGaussianClassifier(DTR, LTR, DTE, LTE):
     acc = Predicted/Predictions.size
 
     return Predicted, DTE.shape[1]
+
+def TiedCovarianceGaussianClassifier(DTR, LTR, DTE, LTE):
+    D0 = DTR[:, LTR==0]
+    D1 = DTR[:, LTR==1]
+    D2 = DTR[:, LTR==2]
+    
+    mu0 = colvec(numpy.matrix(getMu(D0)))
+    mu1 = colvec(numpy.matrix(getMu(D1)))
+    mu2 = colvec(numpy.matrix(getMu(D2)))
+    
+    sigma0 = getSigmaI(D0,mu0)
+    sigma1 = getSigmaI(D1,mu1)
+    sigma2 = getSigmaI(D2,mu2)
+   
+    m_c = []
+    
+    m_c.append(mu0)
+    m_c.append(mu1)
+    m_c.append(mu2)
+    
+    SStar = (sigma0*D0.shape[1]+sigma1*D1.shape[1]+sigma2*D2.shape[1])/DTR.shape[1]
+
+    S = numpy.zeros((3, DTE.shape[1]))
+
+    for i in range(3):
+        for j, sample in enumerate(DTE.T):
+            S[i, j] = logpdf_GAU_ND(sample, m_c[i], SStar)
+
+    SJoint = numpy.log(1/3) + S
+    SSum = scipy.special.logsumexp(SJoint, axis=0)
+    SPost = SJoint - SSum
+
+    Predictions = SPost.argmax(axis=0) == LTE
+    Predicted = Predictions.sum()
+    NotPredicted = Predictions.size - Predicted
+    acc = Predicted/Predictions.size
+
+    return Predicted, DTE.shape[1]
     
 
 
@@ -247,15 +285,16 @@ if __name__ == '__main__':
     
     predicted,shape = MVG_log(DTR,LTR,DTE,LTE)
     print(predicted/shape)
-
+    
     predicted,shape = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
     print(predicted/shape)
-
-    #predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
+    
+    predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
+    print(predicted/shape)
     
     K = 150
     N = int(D.shape[1]/K)
-    classifiers = [(MVG_log, "Multivariate Gaussian Classifier"),(NaiveBayesGaussianClassifier, "Naive Bayes")]
+    classifiers = [(MVG_log, "Multivariate Gaussian Classifier"),(NaiveBayesGaussianClassifier, "Naive Bayes"),(TiedCovarianceGaussianClassifier, "Tied Covariance")]
 
     for j, (c, cstring) in enumerate(classifiers):
         nWrongPrediction = 0
