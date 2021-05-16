@@ -232,31 +232,31 @@ def NaiveBayesGaussianClassifier(DTR, LTR, DTE, LTE):
 def TiedCovarianceGaussianClassifier(DTR, LTR, DTE, LTE):
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
-    D2 = DTR[:, LTR==2]
+    #D2 = DTR[:, LTR==2]
     
     mu0 = colvec(numpy.matrix(getMu(D0)))
     mu1 = colvec(numpy.matrix(getMu(D1)))
-    mu2 = colvec(numpy.matrix(getMu(D2)))
+    #mu2 = colvec(numpy.matrix(getMu(D2)))
     
     sigma0 = getSigmaI(D0,mu0)
     sigma1 = getSigmaI(D1,mu1)
-    sigma2 = getSigmaI(D2,mu2)
+    #sigma2 = getSigmaI(D2,mu2)
    
     m_c = []
     
     m_c.append(mu0)
     m_c.append(mu1)
-    m_c.append(mu2)
+    #m_c.append(mu2)
     
-    SStar = (sigma0*D0.shape[1]+sigma1*D1.shape[1]+sigma2*D2.shape[1])/DTR.shape[1]
+    SStar = (sigma0*D0.shape[1]+sigma1*D1.shape[1])/DTR.shape[1]
 
-    S = numpy.zeros((3, DTE.shape[1]))
+    S = numpy.zeros((2, DTE.shape[1]))
 
-    for i in range(3):
+    for i in range(2):
         for j, sample in enumerate(DTE.T):
             S[i, j] = logpdf_GAU_ND(sample, m_c[i], SStar)
 
-    SJoint = numpy.log(1/3) + S
+    SJoint = numpy.log(1/2) + S
     SSum = scipy.special.logsumexp(SJoint, axis=0)
     SPost = SJoint - SSum
 
@@ -292,7 +292,7 @@ if __name__ == '__main__':
     predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
     print(predicted/shape)
     
-    K = 150
+    K = D.shape[1]
     N = int(D.shape[1]/K)
     classifiers = [(MVG_log, "Multivariate Gaussian Classifier"),(NaiveBayesGaussianClassifier, "Naive Bayes"),(TiedCovarianceGaussianClassifier, "Tied Covariance")]
 
