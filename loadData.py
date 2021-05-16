@@ -5,6 +5,7 @@ Created on Sat May  1 11:57:27 2021
 @author: simo6
 """
 
+# from naivebayesMVG import tiedCov
 import numpy
 import scipy
 import matplotlib.pyplot as plt
@@ -232,31 +233,31 @@ def NaiveBayesGaussianClassifier(DTR, LTR, DTE, LTE):
 def TiedCovarianceGaussianClassifier(DTR, LTR, DTE, LTE):
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
-    D2 = DTR[:, LTR==2]
+    # D2 = DTR[:, LTR==2]
     
     mu0 = colvec(numpy.matrix(getMu(D0)))
     mu1 = colvec(numpy.matrix(getMu(D1)))
-    mu2 = colvec(numpy.matrix(getMu(D2)))
+    # mu2 = colvec(numpy.matrix(getMu(D2)))
     
     sigma0 = getSigmaI(D0,mu0)
     sigma1 = getSigmaI(D1,mu1)
-    sigma2 = getSigmaI(D2,mu2)
+    # sigma2 = getSigmaI(D2,mu2)
    
     m_c = []
     
     m_c.append(mu0)
     m_c.append(mu1)
-    m_c.append(mu2)
+    # m_c.append(mu2)
     
-    SStar = (sigma0*D0.shape[1]+sigma1*D1.shape[1]+sigma2*D2.shape[1])/DTR.shape[1]
+    SStar = (sigma0*D0.shape[1]+sigma1*D1.shape[1])/DTR.shape[1]
 
-    S = numpy.zeros((3, DTE.shape[1]))
+    S = numpy.zeros((2, DTE.shape[1]))
 
-    for i in range(3):
+    for i in range(2):
         for j, sample in enumerate(DTE.T):
             S[i, j] = logpdf_GAU_ND(sample, m_c[i], SStar)
 
-    SJoint = numpy.log(1/3) + S
+    SJoint = numpy.log(1/2) + S
     SSum = scipy.special.logsumexp(SJoint, axis=0)
     SPost = SJoint - SSum
 
@@ -280,52 +281,67 @@ if __name__ == '__main__':
     
     #PCAfunct(DTR,LTR)
     
-    predicted,shape = MVG_classifier(DTR,LTR,DTE,LTE)
-    print(predicted/shape)
+    # predicted,shape = MVG_classifier(DTR,LTR,DTE,LTE)
+    # print(predicted/shape)
     
-    predicted,shape = MVG_log(DTR,LTR,DTE,LTE)
-    print(predicted/shape)
+    # predicted,shape = MVG_log(DTR,LTR,DTE,LTE)
+    # print(predicted/shape)
     
-    predicted,shape = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
-    print(predicted/shape)
+    # predicted,shape = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
+    # print(predicted/shape)
     
-    predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
-    print(predicted/shape)
+    # predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
+    # print(predicted/shape)
     
-    K = 150
-    N = int(D.shape[1]/K)
+    fileResults = open('Resultsfile.txt','w')
+    fileResults.writelines('k \t mvg \t naivebayes \t tiedCov' '\n')
+
+    K = 40 #30    ddalle 2 alle k = 120 
+    # N = int(D.shape[1]/K)
     classifiers = [(MVG_log, "Multivariate Gaussian Classifier"),(NaiveBayesGaussianClassifier, "Naive Bayes"),(TiedCovarianceGaussianClassifier, "Tied Covariance")]
+    for kappa in range(2,K):
+        N = int(D.shape[1]/kappa)
+        fileResults.writelines(str(kappa)+ ' \t ')         
 
-    for j, (c, cstring) in enumerate(classifiers):
-        nWrongPrediction = 0
-        numpy.random.seed(j)
-        indexes = numpy.random.permutation(D.shape[1])
-        for i in range(K):
-    
-            idxTest = indexes[i*N:(i+1)*N]
-    
-            if i > 0:
-                idxTrainLeft = indexes[0:i*N]
-            elif (i+1) < K:
-                idxTrainRight = indexes[(i+1)*N:]
-    
-            if i == 0:
-                idxTrain = idxTrainRight
-            elif i == K-1:
-                idxTrain = idxTrainLeft
-            else:
-                idxTrain = numpy.hstack([idxTrainLeft, idxTrainRight])
-            
-            DTR = D[:, idxTrain]
-            LTR = L[idxTrain]
-            DTE = D[:, idxTest]
-            LTE = L[idxTest]
-            nCorrectPrediction, nSamples = c(DTR,LTR, DTE, LTE)
-            nWrongPrediction += nSamples - nCorrectPrediction
+        for j, (c, cstring) in enumerate(classifiers):
+            nWrongPrediction = 0
+            numpy.random.seed(j)
+            indexes = numpy.random.permutation(D.shape[1])
+            for i in range(kappa):
+        
+                idxTest = indexes[i*N:(i+1)*N]
+        
+                if i > 0:
+                    idxTrainLeft = indexes[0:i*N]
+                elif (i+1) < kappa:
+                    idxTrainRight = indexes[(i+1)*N:]
+        
+                if i == 0:
+                    idxTrain = idxTrainRight
+                elif i == kappa-1:
+                    idxTrain = idxTrainLeft
+                else:
+                    idxTrain = numpy.hstack([idxTrainLeft, idxTrainRight])
+                
+                DTR = D[:, idxTrain]
+                LTR = L[idxTrain]
+                DTE = D[:, idxTest]
+                LTE = L[idxTest]
+                nCorrectPrediction, nSamples = c(DTR,LTR, DTE, LTE)
+                nWrongPrediction += nSamples - nCorrectPrediction
 
-        errorRate = nWrongPrediction/D.shape[1]
-        accuracy = 1 - errorRate
-        print(f"{cstring} results:\nAccuracy: {round(accuracy*100, 1)}%\nError rate: {round(errorRate*100, 1)}%\n") 
+
+            errorRate = nWrongPrediction/D.shape[1]
+            accuracy = 1 - errorRate
+            fileResults.writelines(str(round(accuracy*100, 1)) + '\t')  
+
+
+            print(f"{cstring} results:\nAccuracy: {round(accuracy*100, 1)}%\nError rate: {round(errorRate*100, 1)}%\n") 
+        fileResults.writelines('\n')
+
+    fileResults.close()
     
     
-  
+# analisi dei risultati 
+# pensiamo perche possono essere diversi per tiedcov etc...
+# confusion matrix
