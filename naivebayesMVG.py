@@ -152,6 +152,7 @@ if  __name__ == '__main__':
 
     print(accMVG)
     print(accNaiveBayes)
+    print(accTiedCov)
 
 
 

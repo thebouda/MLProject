@@ -235,17 +235,22 @@ if __name__ == '__main__':
     DTR,LTR = load ('./Data/Train.txt')
     DTE,LTE = load('./Data/Test.txt')
     
-    D = numpy.hstack((DTR,DTE))
-    L = numpy.hstack((LTR,LTE))
+    # D = numpy.hstack((DTR,DTE))
+    D=DTR
+    # L = numpy.hstack((LTR,LTE))
+    L=LTR
     
-    PCAfunct(DTR,LTR)
+    #PCAfunct(DTR,LTR)
     
     predicted,shape = MVG_classifier(DTR,LTR,DTE,LTE)
+    print(predicted/shape)
     
     predicted,shape = MVG_log(DTR,LTR,DTE,LTE)
-    
+    print(predicted/shape)
+
     predicted,shape = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
-    
+    print(predicted/shape)
+
     #predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
     
     K = 150
