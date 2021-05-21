@@ -292,7 +292,7 @@ if __name__ == '__main__':
     
     # predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
     # print(predicted/shape)
-    
+
     fileResults = open('Resultsfile.txt','w')
     fileResults.writelines('k \t mvg \t naivebayes \t tiedCov' '\n')
 
