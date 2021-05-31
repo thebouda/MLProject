@@ -49,7 +49,7 @@ def load(fname):
                 pass
     return numpy.hstack(DList),numpy.array(labelsListQuality,dtype=numpy.int32)
 
-def PCAfunct(D,L):
+def PCAfunct(D,L,DT):
     mu = D.mean(1) #media
     DC = D - mu.reshape((mu.size, 1)) #centrare la matrice
     DCT = DC.T #trasposta
@@ -60,6 +60,7 @@ def PCAfunct(D,L):
     reverse_explained_variance = explained_variance_ratio_[::-1]
     P = U[:, ::-1][:, 0:5]
     DP = numpy.dot(P.T, D)
+    DTE = numpy.dot(P.T,DT)
     plot_scatter(DP, L)
     
     #drow cumulative expleined variance
@@ -67,7 +68,7 @@ def PCAfunct(D,L):
     plt.xlabel('number of components')
     plt.ylabel('cumulative explained variance')
     plt.savefig('cumulative_explained_variance')
-    return DP 
+    return DP,DTE 
 
 def plot_scatter(D,L):  
     
@@ -288,9 +289,9 @@ if __name__ == '__main__':
     # L = numpy.hstack((LTR,LTE))
     L=LTR
     
-    D = PCAfunct(DTR,LTR)
-    
-    #DTR = D
+    #DTR_PCA,DTE_PCA = PCAfunct(DTR,LTR,DTE)
+    #DTE = DTE_PCA
+    #DTR = DTR_PCA    
     
     predicted,shape = MVG_classifier(DTR,LTR,DTE,LTE)
     # print(predicted/shape)
@@ -307,10 +308,10 @@ if __name__ == '__main__':
     fileResults = open('Resultsfile.txt','w')
     fileResults.writelines('k \t mvg \t naivebayes \t tiedCov' '\n')
 
-    K = 8 #30    ddalle 2 alle k = 120 
+    K = 9 #30    ddalle 2 alle k = 120 
     # N = int(D.shape[1]/K)
     classifiers = [(MVG_log, "Multivariate Gaussian Classifier"),(NaiveBayesGaussianClassifier, "Naive Bayes"),(TiedCovarianceGaussianClassifier, "Tied Covariance")]
-    for kappa in range(2,K):
+    for kappa in range(5,K):
         N = int(D.shape[1]/kappa)
         fileResults.writelines(str(kappa)+ ' \t ')         
 
