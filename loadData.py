@@ -49,17 +49,27 @@ def load(fname):
                 pass
     return numpy.hstack(DList),numpy.array(labelsListQuality,dtype=numpy.int32)
 
-def PCAfunct(D,L):
+def PCAfunct(D,L,DT):
     mu = D.mean(1) #media
     DC = D - mu.reshape((mu.size, 1)) #centrare la matrice
     DCT = DC.T #trasposta
     Ctmp=(1/DC.shape[1])*DC
     C=numpy.dot(Ctmp,DCT) #calcolo la covarianza
-    s, U = numpy.linalg.eigh(C) #autovalori e autovettori
-    P = U[:, ::-1][:, 0:2]
+    S, U = numpy.linalg.eigh(C) #autovalori e autovettori
+    explained_variance_ratio_ = S / numpy.sum(S)
+    reverse_explained_variance = explained_variance_ratio_[::-1]
+    P = U[:, ::-1][:, 0:5]
     DP = numpy.dot(P.T, D)
+    DTE = numpy.dot(P.T,DT)
     plot_scatter(DP, L)
     
+    #drow cumulative expleined variance
+    plt.plot(numpy.cumsum(reverse_explained_variance))
+    plt.xlabel('number of components')
+    plt.ylabel('cumulative explained variance')
+    plt.savefig('cumulative_explained_variance')
+    return DP,DTE 
+
 def plot_scatter(D,L):  
     
     for i in range(2):
@@ -279,27 +289,29 @@ if __name__ == '__main__':
     # L = numpy.hstack((LTR,LTE))
     L=LTR
     
-    #PCAfunct(DTR,LTR)
+    #DTR_PCA,DTE_PCA = PCAfunct(DTR,LTR,DTE)
+    #DTE = DTE_PCA
+    #DTR = DTR_PCA    
     
-    # predicted,shape = MVG_classifier(DTR,LTR,DTE,LTE)
+    predicted,shape = MVG_classifier(DTR,LTR,DTE,LTE)
     # print(predicted/shape)
     
-    # predicted,shape = MVG_log(DTR,LTR,DTE,LTE)
+    predicted,shape = MVG_log(DTR,LTR,DTE,LTE)
     # print(predicted/shape)
     
-    # predicted,shape = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
+    predicted,shape = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
     # print(predicted/shape)
     
-    # predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
+    predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
     # print(predicted/shape)
 
     fileResults = open('Resultsfile.txt','w')
     fileResults.writelines('k \t mvg \t naivebayes \t tiedCov' '\n')
 
-    K = 40 #30    ddalle 2 alle k = 120 
+    K = 9 #30    ddalle 2 alle k = 120 
     # N = int(D.shape[1]/K)
     classifiers = [(MVG_log, "Multivariate Gaussian Classifier"),(NaiveBayesGaussianClassifier, "Naive Bayes"),(TiedCovarianceGaussianClassifier, "Tied Covariance")]
-    for kappa in range(2,K):
+    for kappa in range(5,K):
         N = int(D.shape[1]/kappa)
         fileResults.writelines(str(kappa)+ ' \t ')         
 
