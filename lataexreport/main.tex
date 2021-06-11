@@ -1,9 +1,10 @@
-
 \documentclass[twoside,a4paper,12pt]{report}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{appendix}
 \usepackage{nameref}
+\usepackage{float}
+\usepackage{flafter}
 \usepackage{url}
 \def\UrlBreaks{\do\/\do-}
 \Urlmuskip=0mu plus 1mu
@@ -128,11 +129,13 @@ style=alphabetic
 
 \section{Dataset}
 
-The dataset contains the information of red and white variants of the Portuguese "Vinho Verde" wine. It has been splitted into Test and Train sets containing 1822 and 1839 samples respectively. Moreover, there are two classes: good quality (value 1) and bad quality wine (value 0), where each has twelve attributes: 
+The dataset contains the information of red and white variants of the Portuguese "Vinho Verde" wine. 
+It has been split into Test and Train sets containing 1822 and 1839 samples respectively. 
+Moreover, there are two classes: good quality (value 1) and bad quality wine (value 0), 
+where each has twelve attributes. Moreover, the table \ref{RangeAndTypesAttributes} 
+resumes the information related to the attributes.
 
-DISTRIBUTION OF EACH ATTRIBUTES AND RANGE
-
-\begin{itemize}
+\begin{enumerate}
     \item fixed acidity
     \item volatile acidity
     \item citric acid
@@ -144,16 +147,15 @@ DISTRIBUTION OF EACH ATTRIBUTES AND RANGE
     \item pH
     \item sulphates
     \item alcohol
-\end{itemize}
+\end{enumerate}
 
 
-\subsection{Range and distribution}
 
 \begin{table}
 \centering
  \begin{tabular}{||c c c||} 
  \hline \hline
- \makecell{Attributes} & \makecell{Range} & \makecell{Type }\\ 
+ Attributes & Range & Type\\ 
  \hline\hline
  Fixed acidity & [3 ; 15.9] & Continuous\\ 
  \hline
@@ -187,7 +189,6 @@ DISTRIBUTION OF EACH ATTRIBUTES AND RANGE
 \end{table}
 
 
-histograms figure \ref{HistogramsWithoutMod} 
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth,height=0.7\textheight]{histograms.png}
@@ -195,21 +196,85 @@ histograms figure \ref{HistogramsWithoutMod}
      \label{HistogramsWithoutMod} 
 \end{figure}
 
+\subsection{Correlations}
+
+The image \ref{CorrelationRaw} illustrates the correlation between the attributes in the dataset. 
+It can be extracted from the figure that the most correlated attributes are (7,10), (6,5) (6,3) and 
+(7,3) (see table \ref{ResumeCorrelation}).  Even though the correlation is higher in those attributes,
+ the values are still unimportant (lower than 0.8) in order to consider a strong correlation between them.
+  CONTINUE ANALYSISSSSSSS
 
 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth,height=0.5\textheight]{correlation_no_transformation.png}
+    \caption{Correlations of the raw data (Pearson's coefficient)}
+     \label{CorrelationRaw} 
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{|| c|c|c||}
+          \hline \hline
+         Attributes (by pairs) & Tag & Correlations  \\
+         \hline \hline
+         (7,10) & (density, alcohol) & -0.692\\
+         \hline
+         (6,5) & (total sulfur dioxide, free sulfur dioxide) & 0.73  \\
+         \hline
+         (6,3) & (total sulfur dioxide, residual sugar) & 0.52 \\
+         \hline
+         (7,3) & (density, residual sugar) &0.526 \\
+         \hline  \hline
+    \end{tabular}
+    \caption{Most correlated attributes}
+    \label{ResumeCorrelation}
+\end{table}
+
+
+
+
+\subsection{PCA - Principal Component Analysis}
+
+Principal Component Analysis or PCA is a widely used technique for dimensionality 
+reduction of the large data set. Reducing the number of components or features costs
+ some accuracy and on the other hand, it makes the large data set simpler, easy to 
+ explore and visualize. Also, it reduces the computational complexity of the model 
+ which makes machine learning algorithms run faster.
+
+% \subsection{Use PCA on our dataset}
+\textbf{Steps Involved in PCA}
+\begin{enumerate}
+    \item Standardize the data (with mean =0 and variance = 1).
+    \item Compute the Covariance matrix of dimensions.
+    \item Obtain the Eigenvectors and Eigenvalues from the covariance matrix
+    \item Sort eigenvalues in descending order and choose the top k Eigenvectors 
+    that correspond to the k largest eigenvalues (k will become the number of 
+    dimensions of the new feature subspace k $\leq$ d, d being the number of original dimensions).
+    \item Construct the projection matrix W from the selected k Eigenvectors.
+    \item Transform the original data set X via W to obtain the new k-dimensional feature subspace Y.
+\end{enumerate}
+
+Analyzing the eigenvalues obtained,  we can see how almost all of the information
+can be obtained using 4 or 5 dimensions.
+By drawing the cumulative graph of the eigenvalues, the same conclusion can be extracted.
+ -insert plot cumulative explained variance.png-
+Hence, PCA could be implemented and see if the accuracy improves significantly.
 
 
 \section{Classifiers}
 
 \subsection{Without previous analysis}
 
-In order to classify the data, different models have been taken into account : mutlivariate gaussian classifier, tied covariance, Naive Bayes and a k-fold approach. The results are shown in the table \ref{diffTypesclass}.
+In order to classify the data, different models have been taken into account:
+mutlivariate gaussian classifier, tied covariance, Naive Bayes and a k-fold approach.
+ The results are shown in the table \ref{diffTypesclass}.
 \begin{table}
 \centering
  \begin{tabular}{||c c||} 
  \hline \hline
- \makecell{Classifier} & \makecell{Accuracy (\%)} \\
+ Classifier & Accuracy (\%) \\
  \hline\hline
  Multivariate & 80.46  \\ 
  \hline
@@ -222,7 +287,12 @@ In order to classify the data, different models have been taken into account : m
 \caption{Different types of classifiers and their accuracy}
 \end{table}
 
-The precision of the models seems to be similar, however the tied covariance model has a greater precision so far with 81.44 \% and Naive Bayes performs the worst with 78.98 \%.The explanation of the poor Naive Bayes performance can be due to the fact that when we perform the diagonalization of the covariances, we do so by putting to zero the other elements of the matrix, hence inevitably losing information. This loss of information might be the explanation of a worse performance than the other classifiers.  
+The precision of the models seems to be similar, however the tied covariance model has a
+ greater precision so far with 81.44 \% and Naive Bayes performs the worst with 78.98 \%. 
+ The explanation of the poor Naive Bayes performance can be due to the fact that when we 
+ perform the diagonalization of the covariances, we do so by putting to zero the other elements
+  of the matrix, hence inevitably losing information. This loss of information might be the 
+  explanation of a worse performance than the other classifiers.  
 
 
 \end{document}
