@@ -27,16 +27,10 @@ if __name__ == '__main__':
 
     # calculate the correlation betwween variables
     # using the coeficient of pearson
-    corr=numpy.zeros((11,11))
-    varsToCompare =[]
-    for i in range(DTrain.shape[0]): # 11 values, 12 subplots 3 *4
-        for j in range(DTrain.shape[0]):
-            varsToCompare = [DTrain[j,:],DTrain[i,:]]
-            corr[i,j] = numpy.cov(varsToCompare)[0,0]/(numpy.sqrt(numpy.var(DTrain[i,:])) *numpy.sqrt( numpy.var(DTrain[i,:])))
-    
-    corr2= numpy.corrcoef(DTrain)
-    print(corr)
-    plt.imshow(corr2,cmap='hot')
+        
+    corr2=numpy.round(numpy.corrcoef(DTrain),3)
+    print(corr2)
+    plt.imshow(corr2, cmap='RdBu', vmin=-1, vmax=1)
     plt.show()
 
 
