@@ -1,1 +1,2 @@
 k 	 mvg 	 naivebayes 	 tiedCov
+8 	 80.4	76.1	79.0	
