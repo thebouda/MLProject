@@ -1,0 +1,298 @@
+\documentclass[twoside,a4paper,12pt]{report}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{appendix}
+\usepackage{nameref}
+\usepackage{float}
+\usepackage{flafter}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\Urlmuskip=0mu plus 1mu
+\usepackage[
+backend=biber,
+style=alphabetic
+]{biblatex}
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+ \usepackage[T1]{fontenc} 
+ \usepackage[final]{microtype}
+\emergencystretch=1em
+\graphicspath{ {images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,english]{babel}
+
+
+
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+ 
+\setlength{\parindent}{4em}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.3}
+
+\usepackage{indentfirst}
+
+\usepackage{mathptmx}
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+
+
+\graphicspath{ {images/} }
+
+\usepackage[]{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ inner=25mm,
+ outer=25mm,
+ top=25mm,
+ bottom=25mm
+ }
+ 
+ 
+
+
+
+\usepackage{csquotes}
+
+\addbibresource{references.bib}
+
+\usepackage{titlesec}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+ 
+\setlength{\parindent}{4em}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.3}
+
+\usepackage{indentfirst}
+
+\usepackage[]{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ inner=25mm,
+ outer=25mm,
+ top=25mm,
+ bottom=25mm
+ }
+ 
+% \title{Machine learning and pattern recognition project}
+\usepackage{csquotes}
+\begin{document}
+
+\tableofcontents
+
+\newpage
+
+
+\setcounter{chapter}{1}
+
+
+\section{Dataset}
+
+The dataset contains the information of red and white variants of the Portuguese "Vinho Verde" wine. 
+It has been split into Test and Train sets containing 1822 and 1839 samples respectively. 
+Moreover, there are two classes: good quality (value 1) and bad quality wine (value 0), 
+where each has twelve attributes. Moreover, the table \ref{RangeAndTypesAttributes} 
+resumes the information related to the attributes.
+
+\begin{enumerate}
+    \item fixed acidity
+    \item volatile acidity
+    \item citric acid
+    \item residual sugar
+    \item chlorides
+    \item free sulfur dioxide
+    \item total sulfur dioxide
+    \item density
+    \item pH
+    \item sulphates
+    \item alcohol
+\end{enumerate}
+
+
+
+\begin{table}
+\centering
+ \begin{tabular}{||c c c||} 
+ \hline \hline
+ Attributes & Range & Type\\ 
+ \hline\hline
+ Fixed acidity & [3 ; 15.9] & Continuous\\ 
+ \hline
+ Volatile acidity & [0.1 ; 1.58] & Continuous\\
+ \hline
+ Citric acid & [0 ; 1] & Continuous \\
+  \hline
+ Residual sugar & [0.7 ; 23.5] & Continuous \\
+  \hline
+ Citric acid & [0 ; 1] & Continuous \\
+ \hline
+ Chlorides & [0.013 ; 0.611] & Continuous \\
+ \hline
+ Free sulfur dioxide & [2 ; 289] & Continuous \\
+ \hline
+ Total sulfur dioxide & [7 ; 440] & Continuous \\
+  \hline
+ Density & [0.9874 ; 1.0032] & Continuous \\
+  \hline
+  pH & [2.79 ; 3.9 ] & Continuous \\
+   \hline
+ Sulphates & [0.25 ; 1.36] & Continuous \\
+  \hline
+ Alcohol & [8 ; 14.9] & Continuous \\
+  \hline
+ Total sulfur dioxide & [7,440] & Continuous \\
+ \hline \hline
+\end{tabular}
+\label{RangeAndTypesAttributes}
+\caption{Range and types of the attributes}
+\end{table}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth,height=0.7\textheight]{histograms.png}
+    \caption{Histograms of the attributes (numerated) without modification}
+     \label{HistogramsWithoutMod} 
+\end{figure}
+
+\subsection{Correlations}
+
+The image \ref{CorrelationRaw} illustrates the correlation between the attributes in the dataset. 
+It can be extracted from the figure that the most correlated attributes are (7,10), (6,5) (6,3) and 
+(7,3) (see table \ref{ResumeCorrelation}).  Even though the correlation is higher in those attributes,
+ the values are still unimportant (lower than 0.8) in order to consider a strong correlation between them.
+  CONTINUE ANALYSISSSSSSS
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth,height=0.5\textheight]{correlation_no_transformation.png}
+    \caption{Correlations of the raw data (Pearson's coefficient)}
+     \label{CorrelationRaw} 
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{|| c|c|c||}
+          \hline \hline
+         Attributes (by pairs) & Tag & Correlations  \\
+         \hline \hline
+         (7,10) & (density, alcohol) & -0.692\\
+         \hline
+         (6,5) & (total sulfur dioxide, free sulfur dioxide) & 0.73  \\
+         \hline
+         (6,3) & (total sulfur dioxide, residual sugar) & 0.52 \\
+         \hline
+         (7,3) & (density, residual sugar) &0.526 \\
+         \hline  \hline
+    \end{tabular}
+    \caption{Most correlated attributes}
+    \label{ResumeCorrelation}
+\end{table}
+
+
+
+
+\subsection{PCA - Principal Component Analysis}
+
+Principal Component Analysis or PCA is a widely used technique for dimensionality 
+reduction of the large data set. Reducing the number of components or features costs
+ some accuracy and on the other hand, it makes the large data set simpler, easy to 
+ explore and visualize. Also, it reduces the computational complexity of the model 
+ which makes machine learning algorithms run faster.
+
+% \subsection{Use PCA on our dataset}
+\textbf{Steps Involved in PCA}
+\begin{enumerate}
+    \item Standardize the data (with mean =0 and variance = 1).
+    \item Compute the Covariance matrix of dimensions.
+    \item Obtain the Eigenvectors and Eigenvalues from the covariance matrix
+    \item Sort eigenvalues in descending order and choose the top k Eigenvectors 
+    that correspond to the k largest eigenvalues (k will become the number of 
+    dimensions of the new feature subspace k $\leq$ d, d being the number of original dimensions).
+    \item Construct the projection matrix W from the selected k Eigenvectors.
+    \item Transform the original data set X via W to obtain the new k-dimensional feature subspace Y.
+\end{enumerate}
+
+Analyzing the eigenvalues obtained,  we can see how almost all of the information
+can be obtained using 4 or 5 dimensions.
+By drawing the cumulative graph of the eigenvalues, the same conclusion can be extracted.
+ -insert plot cumulative explained variance.png-
+Hence, PCA could be implemented and see if the accuracy improves significantly.
+
+
+\section{Classifiers}
+
+\subsection{Without previous analysis}
+
+In order to classify the data, different models have been taken into account:
+mutlivariate gaussian classifier, tied covariance, Naive Bayes and a k-fold approach.
+ The results are shown in the table \ref{diffTypesclass}.
+\begin{table}
+\centering
+ \begin{tabular}{||c c||} 
+ \hline \hline
+ Classifier & Accuracy (\%) \\
+ \hline\hline
+ Multivariate & 80.46  \\ 
+ \hline
+ Tied Covariance & 81.44\\
+ \hline
+ Naive Bayes & 78.98 \\
+ \hline \hline
+\end{tabular}
+\label{diffTypesclass}
+\caption{Different types of classifiers and their accuracy}
+\end{table}
+
+The precision of the models seems to be similar, however the tied covariance model has a
+ greater precision so far with 81.44 \% and Naive Bayes performs the worst with 78.98 \%. 
+ The explanation of the poor Naive Bayes performance can be due to the fact that when we 
+ perform the diagonalization of the covariances, we do so by putting to zero the other elements
+  of the matrix, hence inevitably losing information. This loss of information might be the 
+  explanation of a worse performance than the other classifiers.  
+
+
+\end{document}

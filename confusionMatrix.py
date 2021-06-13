@@ -208,13 +208,26 @@ if __name__=='__main__':
     DTest,LTest =load('Data/Test.txt')
     # what have we consider as positive ? positive good wine negative bad wine
     # we need c mu and 
+    fileNameConfMatrix = "confMatrixResults.txt"
+    
     priorNB = 0.5 
-    CFN =3
-    CFP =6 
+
     # get the llr of the naive bayes model
     nbLLR=naivebayesLLR(DTrain,LTrain,DTest,LTest,priorNB)
     multiLLR =mvgLLR(DTrain,LTrain,DTest,LTest,priorNB)
     tiedLLR =tiedCovLLR(DTrain,LTrain,DTest,LTest,priorNB)
+
+
+    fileConfMatrix= open(fileNameConfMatrix,'w')
+      
+    # cfnRange = range()
+    CFN =1
+    CFP =2 # 2 scelta
+
+
+    # punto di vista di constumer
+    # fileConfMatrix.writelines('CFN' + '\t ' + 'CFP' + '\t' + 'optimal bayes NB' + '\t' + 'optimal bayes  mvg' + '\t' + 'optimal bayes Tied Cov' +)
+
 
     # optimal bayes
     # naive bayes
@@ -222,6 +235,9 @@ if __name__=='__main__':
     print('naive bayes')
     print(obmNB )
     print('\n')
+
+    # fileConfMatrix.writelines('naive bayes \t')
+    # fileConfMatrix.writelines(obmNB)
 
     # mvg
     obmMVG =  computeOptimalBayes(priorNB,CFN,CFP,multiLLR,LTest)
@@ -256,6 +272,7 @@ if __name__=='__main__':
     print(dcfTied)
     print(dcfNormaTied)
     print('\n')
+
 
 
 

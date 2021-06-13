@@ -357,3 +357,4 @@ if __name__ == '__main__':
 # analisi dei risultati 
 # pensiamo perche possono essere diversi per tiedcov etc...
 # confusion matrix
+

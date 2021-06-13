@@ -1,0 +1,12 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {english}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Dataset}{2}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.1}Correlations}{2}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.2}PCA - Principal Component Analysis}{6}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Classifiers}{6}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.1}Without previous analysis}{6}{}%
