@@ -9,6 +9,7 @@ import numpy
 import scipy
 from scipy import special
 
+
 def getMu(D):
     mu = []
     for i in range(D.shape[0]):

@@ -1,49 +1,8 @@
-from naivebayesMVG import logpdf_GAU_ND as llr
 import numpy
 
 
 def colvec(vec):
   return vec.reshape(numpy.size(vec,0),1)
-
-def vrow(vec):
-  return vec.reshape(1,numpy.size(vec,0))
-
-def mcol(v):
-    return v.reshape((v.size,1))
-    
-int_to_label = {
-    0 : 'fixed acidity',
-    1 :'volatile acidity',
-    2 : 'citric acid',
-    3 : 'residual sugar',
-    4 : 'chlorides',
-    5 : 'free sulfur dioxide',
-    6 : 'total sulfur dioxide',
-    7 : 'density',
-    8 : 'pH',
-    9 : 'sulphates',
-    10 : 'alcohol'
-    }
-
-int_to_label_quality = {
-    0:'low_quality',
-    1:'high_quality'
-    }
-
-def load(fname):
-    DList = []
-    labelsListQuality = []
-    with open(fname) as f:
-        for line in f:
-            try:
-                attrs = line.split(',')[0:11]
-                attrs = mcol(numpy.array(attrs,dtype=numpy.float32))
-                quality = line.split(',')[-1].strip()
-                DList.append(attrs)
-                labelsListQuality.append(quality)
-            except:
-                pass
-    return numpy.hstack(DList),numpy.array(labelsListQuality,dtype=numpy.int32)
 
 
 # function that return the llr
@@ -52,8 +11,8 @@ def naivebayesLLR(DTrain,LTrain,DTest,LTest,prior0):
     (mu0,var0),(mu1,var1)= computeVarMed(DTrain,LTrain)
 
     #diagonalize variances
-    var0Diag = numpy.multiply(numpy.identity(11),var0)
-    var1Diag =numpy.multiply(numpy.identity(11),var1)
+    var0Diag = numpy.multiply(numpy.identity(DTrain.shape[0]),var0)
+    var1Diag =numpy.multiply(numpy.identity(DTrain.shape[0]),var1)
 
     # prior0 = calculatePriors(DTrain,LTrain,0)
     prior0 =0.5
@@ -201,14 +160,50 @@ def computeOptimalBayes(posterior1,CFN,CFP,llr,labels):
   [class01Pred,class11Pred]])
 
 
+def KFoldValidationConfusionMatrix(D,L):
+    K = 8 
+    # N = int(D.shape[1]/K)
 
 
-if __name__=='__main__':
-    DTrain,LTrain =load('Data/Train.txt')
-    DTest,LTest =load('Data/Test.txt')
+    N = int(D.shape[1]/K)       
+
+    nWrongPrediction = 0
+    numpy.random.seed(0)
+    indexes = numpy.random.permutation(D.shape[1])
+    for i in range(K):
+
+        idxTest = indexes[i*N:(i+1)*N]
+
+        if i > 0:
+            idxTrainLeft = indexes[0:i*N]
+        elif (i+1) < K:
+            idxTrainRight = indexes[(i+1)*N:]
+
+        if i == 0:
+            idxTrain = idxTrainRight
+        elif i == K-1:
+            idxTrain = idxTrainLeft
+        else:
+            idxTrain = numpy.hstack([idxTrainLeft, idxTrainRight])
+        
+        DTR = D[:, idxTrain]
+        LTR = L[idxTrain]
+        DTE = D[:, idxTest]
+        LTE = L[idxTest]
+        confusionMatrix(DTR,LTR, DTE, LTE,i)
+
+      
+
+
+
+
+
+
+def confusionMatrix(DTrain,LTrain,DTest,LTest,i):
+   
     # what have we consider as positive ? positive good wine negative bad wine
     # we need c mu and 
-    fileNameConfMatrix = "confMatrixResults.txt"
+    #fileNameConfMatrix = "confMatrixResults"+ str(i) + ".txt" 
     
     priorNB = 0.5 
 
@@ -218,7 +213,7 @@ if __name__=='__main__':
     tiedLLR =tiedCovLLR(DTrain,LTrain,DTest,LTest,priorNB)
 
 
-    fileConfMatrix= open(fileNameConfMatrix,'w')
+    #fileConfMatrix= open(fileNameConfMatrix,'w')
       
     # cfnRange = range()
     CFN =1
@@ -228,7 +223,9 @@ if __name__=='__main__':
     # punto di vista di constumer
     # fileConfMatrix.writelines('CFN' + '\t ' + 'CFP' + '\t' + 'optimal bayes NB' + '\t' + 'optimal bayes  mvg' + '\t' + 'optimal bayes Tied Cov' +)
 
-
+    print ('\n')
+    print("--------partition"+str(i)+"-------")
+    
     # optimal bayes
     # naive bayes
     obmNB =  computeOptimalBayes(priorNB,CFN,CFP,nbLLR,LTest)

@@ -9,6 +9,8 @@ Created on Sat May  1 11:57:27 2021
 import numpy
 from PCA import PCAfunct
 from GenerativeModels import MVG_classifier,MVG_log,NaiveBayesGaussianClassifier,TiedCovarianceGaussianClassifier,KFoldValidation
+from confusionMatrix import KFoldValidationConfusionMatrix
+from logisticRegression import KFoldValidationLogisticRegression
 
 def mcol(v):
     return v.reshape((v.size,1))
@@ -62,22 +64,30 @@ if __name__ == '__main__':
     L=LTR
     
     DTR_PCA,DTE_PCA = PCAfunct(DTR,LTR,DTE)
-    #DTE = DTE_PCA
-    #DTR = DTR_PCA    
+    DTE = DTE_PCA
+    DTR = DTR_PCA    
+    lambdaVector = [0.1e-4,1e-4, 2e-4, 4e-4, 6e-4, 10e-4, 40e-4, 100e-4]
     
-    predicted,shape = MVG_classifier(DTR,LTR,DTE,LTE)
-    # print(predicted/shape)
-    
-    predicted,shape = MVG_log(DTR,LTR,DTE,LTE)
-    # print(predicted/shape)
-    
-    predicted,shape = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
-    # print(predicted/shape)
-    
-    predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
-    # print(predicted/shape)
+# =============================================================================
+#     predicted,shape = MVG_classifier(DTR,LTR,DTE,LTE)
+#     print(predicted/shape)
+#     
+#     predicted,shape = MVG_log(DTR,LTR,DTE,LTE)
+#     print(predicted/shape)
+#     
+#     predicted,shape = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
+#     print(predicted/shape)
+#     
+#     predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
+#     print(predicted/shape)
+# =============================================================================
 
-    KFoldValidation(D,L)
+    #KFoldValidation(D,L)
+    #KFoldValidation(DTR,L) #PCA
+    #KFoldValidationConfusionMatrix(D,L)
+    #KFoldValidationConfusionMatrix(DTR,L) #PCA
+    #KFoldValidationLogisticRegression(D,L,lambdaVector)
+    KFoldValidationLogisticRegression(DTR,L,lambdaVector) #PCA
 
 # analisi dei risultati 
 # pensiamo perche possono essere diversi per tiedcov etc...
