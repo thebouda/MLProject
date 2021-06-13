@@ -352,8 +352,8 @@ if __name__ == '__main__':
         fileResults.writelines('\n')
 
     fileResults.close()
-    
-    
+
+
 # analisi dei risultati 
 # pensiamo perche possono essere diversi per tiedcov etc...
 # confusion matrix
