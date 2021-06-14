@@ -11,7 +11,7 @@ from PCA import PCAfunct
 from GenerativeModels import MVG_classifier,MVG_log,NaiveBayesGaussianClassifier,TiedCovarianceGaussianClassifier,KFoldValidation
 from confusionMatrix import KFoldValidationConfusionMatrix
 from logisticRegression import KFoldValidationLogisticRegression
-
+from SVM import KFoldValidationSVM
 def mcol(v):
     return v.reshape((v.size,1))
 
@@ -51,7 +51,6 @@ def load(fname):
 
     
 
-    
 
 
 if __name__ == '__main__':
@@ -87,7 +86,15 @@ if __name__ == '__main__':
     #KFoldValidationConfusionMatrix(D,L)
     #KFoldValidationConfusionMatrix(DTR,L) #PCA
     #KFoldValidationLogisticRegression(D,L,lambdaVector)
-    KFoldValidationLogisticRegression(DTR,L,lambdaVector) #PCA
+    # KFoldValidationLogisticRegression(DTR,L,lambdaVector) #PCA
+
+    
+    C = [0.001,0.005,0.01,0.05,0.08,0.1,0.5,0.9]
+    # KFoldValidationSVM(D,L,C)
+    KFoldValidationSVM(DTR,L,C) #pca
+
+
+
 
 # analisi dei risultati 
 # pensiamo perche possono essere diversi per tiedcov etc...

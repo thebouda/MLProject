@@ -1,0 +1,2 @@
+K 	 set 	 c 	 error Rate 	 duality gap 	 primal 
+8 	 0 	0.001	29.258 	 0.0021 	 1.1237
