@@ -264,24 +264,32 @@ Hence, PCA could be implemented and see if the accuracy improves significantly.
 
 
 \section{Classifiers}
+In order to perform the classification, we have performedd cross validation on the 
+training set with k = 8.
+The decision for that value of k was taken due to one major factor: time.In fact, the size of the sample being 
+1839, the leave-one-out method was discarded due to time needed to perform it.
+Moreover, while performing k-fold with some classifiers, k = 8 appeared as an affordable value 
+concerning time consumption, whilst performing a decent classification (> 80\%).
+Hence every time the k-fold is performed, we are using k = 8.
 
 \subsection{Without previous analysis}
 
 In order to classify the data, different models have been taken into account:
-mutlivariate gaussian classifier, tied covariance, Naive Bayes and a k-fold approach.
- The results are shown in the table \ref{diffTypesclass}.
+mutlivariate gaussian classifier, tied covariance, Naive Bayes through a k-fold approach.
+ The results are shown in the table \ref{diffTypesclass}. So far, the MVG classifier
+ overperforms the other two with a 81.5 \% accuracy.
 \begin{table}
 \centering
  \begin{tabular}{||c c||} 
- \hline \hline
- Classifier & Accuracy (\%) \\
- \hline\hline
- Multivariate & 80.46  \\ 
- \hline
- Tied Covariance & 81.44\\
- \hline
- Naive Bayes & 78.98 \\
- \hline \hline
+    \hline \hline
+    Classifier & Accuracy (\%) \\
+    \hline\hline
+    Multivariate & 81.5  \\ 
+    \hline
+    Tied Covariance & 79 \\
+    \hline
+    Naive Bayes & 76.1 \\
+    \hline \hline
 \end{tabular}
 \label{diffTypesclass}
 \caption{Different types of classifiers and their accuracy}

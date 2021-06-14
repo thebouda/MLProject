@@ -1,0 +1,168 @@
+ #------- PCA SVM -------------
+
+c 0.001
+errorRate: 29.257642
+duality gap 0.000028
+primal : 1.1217364883818648
+dualObj: [[-1.12170828]]
+
+
+ c 0.005
+errorRate: 24.454148
+duality gap 0.000000
+primal : 5.9380107438389835
+dualObj: [[-5.93801057]]
+
+
+ c 0.01
+errorRate: 26.200873
+duality gap 0.088422
+primal : 13.153512445714698
+dualObj: [[-13.06509025]]
+
+
+ c 0.05
+errorRate: 30.131004
+duality gap 43.101842
+primal : 110.63024980064199
+dualObj: [[-67.52840764]]
+
+
+ c 0.08
+errorRate: 25.327511
+duality gap 6.110639
+primal : 119.76130193355998
+dualObj: [[-113.65066328]]
+
+
+ c 0.1
+errorRate: 23.144105
+duality gap 3.778136
+primal : 157.18594025105472
+dualObj: [[-153.4078044]]
+
+
+ c 0.5
+errorRate: 17.903930
+duality gap 119.131251
+primal : 859.0935106288097
+dualObj: [[-739.96225986]]
+
+
+ c 0.9
+errorRate: 27.074236
+duality gap 342.727480
+primal : 1057.1331875012231
+dualObj: [[-714.40570706]]
+
+
+
+#--------------- svm 
+
+c 0.001
+errorRate: 29.694323
+duality gap 0.000069
+primal : 1.0947356408604147
+dualObj: [[-1.09466625]]
+
+
+ c 0.005
+errorRate: 21.834061
+duality gap 0.000000
+primal : 5.3892080141998076
+dualObj: [[-5.38920788]]
+
+
+ c 0.01
+errorRate: 17.467249
+duality gap 0.000058
+primal : 11.154173176725548
+dualObj: [[-11.15411514]]
+
+
+ c 0.05
+errorRate: 14.410480
+duality gap 0.378706
+primal : 54.42617795474957
+dualObj: [[-54.04747161]]
+
+
+ c 0.08
+errorRate: 24.890830
+duality gap 1.645804
+primal : 92.66973629400562
+dualObj: [[-91.02393195]]
+
+
+ c 0.1
+errorRate: 19.213974
+duality gap 0.586478
+primal : 125.88049597565403
+dualObj: [[-125.29401826]]
+
+
+ c 0.5
+errorRate: 31.877729
+duality gap 2259.613467
+primal : 2894.772538247056
+dualObj: [[-635.15907124]]
+
+
+ c 0.9
+errorRate: 18.777293
+duality gap 97.030523
+primal : 713.8171132511781
+dualObj: [[-616.78659027]]
+
+
+# --- without pca second round
+ c 0.004
+errorRate: 20.524017
+duality gap 0.005618
+primal : 3.9590394074691577
+dualObj: [[-3.95342123]]
+
+
+ c 0.005
+errorRate: 21.834061
+duality gap 0.000000
+primal : 5.3892080141998076
+dualObj: [[-5.38920788]]
+
+
+ c 0.006
+errorRate: 20.087336
+duality gap 0.000002
+primal : 7.055814076641
+dualObj: [[-7.05581212]]
+
+
+ c 0.007
+errorRate: 16.593886
+duality gap 0.000001
+primal : 8.897215666521708
+dualObj: [[-8.89721489]]
+
+
+ c 0.008
+errorRate: 27.510917
+duality gap 0.001299
+primal : 10.813670424252104
+dualObj: [[-10.81237157]]
+
+
+ c 0.009
+errorRate: 20.524017
+duality gap 0.000123
+primal : 13.257406091420558
+dualObj: [[-13.2572829]]
+
+
+ c 0.01
+errorRate: 18.777293
+duality gap 0.010953
+primal : 15.717110290428918
+dualObj: [[-15.70615704]]
+
+
+#-----without pca third

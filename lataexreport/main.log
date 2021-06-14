@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.29)  11 JUN 2021 11:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.29)  14 JUN 2021 23:12
 entering extended mode
-**c:/Users/baldo/OneDrive/Escritorio/polito/ml/Project/MLProject/lataexreport/main.tex
-(c:/Users/baldo/OneDrive/Escritorio/polito/ml/Project/MLProject/lataexreport/main.tex
+**c:/Users/baldo/OneDrive/Escritorio/polito/ml/NewProject/lataexreport/main.tex
+(c:/Users/baldo/OneDrive/Escritorio/polito/ml/NewProject/lataexreport/main.tex
 LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-05-11> (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/base\report.cls
 Document Class: report 2020/04/10 v1.4m Standard LaTeX document class
@@ -725,15 +725,15 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 16160 strings out of 479163
- 279114 string characters out of 2853998
+ 16170 strings out of 479163
+ 279148 string characters out of 2853998
  1083568 words of memory out of 3000000
- 33448 multiletter control sequences out of 15000+600000
- 436420 words of font info for 127 fonts, out of 8000000 for 9000
+ 33452 multiletter control sequences out of 15000+600000
+ 436680 words of font info for 131 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,9n,76p,813b,1762s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,9n,76p,806b,1762s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (7 pages, 89878 bytes).
+Output written on main.pdf (7 pages, 90732 bytes).
 PDF statistics:
  44 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

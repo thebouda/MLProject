@@ -1,6 +1,6 @@
-PWD C:\Users\baldo\OneDrive\Escritorio\polito\ml\Project\MLProject\lataexreport
+PWD C:\Users\baldo\OneDrive\Escritorio\polito\ml\NewProject\lataexreport
 INPUT C:\Users\baldo\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\baldo\OneDrive\Escritorio\polito\ml\Project\MLProject\lataexreport\main.tex
+INPUT c:\Users\baldo\OneDrive\Escritorio\polito\ml\NewProject\lataexreport\main.tex
 OUTPUT main.log
 INPUT C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex\latex\base\report.cls
 INPUT C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex\latex\base\report.cls

@@ -12,6 +12,7 @@ from GenerativeModels import MVG_classifier,MVG_log,NaiveBayesGaussianClassifier
 from confusionMatrix import KFoldValidationConfusionMatrix
 from logisticRegression import KFoldValidationLogisticRegression
 from SVM import KFoldValidationSVM
+from GenerativeModels import KFoldValidationGenerativeModels
 def mcol(v):
     return v.reshape((v.size,1))
 
@@ -65,20 +66,24 @@ if __name__ == '__main__':
     DTR_PCA,DTE_PCA = PCAfunct(DTR,LTR,DTE)
     DTE = DTE_PCA
     DTR = DTR_PCA    
-    lambdaVector = [0.1e-4,1e-4, 2e-4, 4e-4, 6e-4, 10e-4, 40e-4, 100e-4]
+    # lambdaVector = [0.1e-4,1e-4, 2e-4, 4e-4, 6e-4, 10e-4, 40e-4, 100e-4]
     
+    # generateive model classification
+
+    # KFoldValidationGenerativeModels(D,L) # no pca
+    KFoldValidationGenerativeModels(DTR,L) # pca
 # =============================================================================
-#     predicted,shape = MVG_classifier(DTR,LTR,DTE,LTE)
-#     print(predicted/shape)
-#     
-#     predicted,shape = MVG_log(DTR,LTR,DTE,LTE)
-#     print(predicted/shape)
-#     
-#     predicted,shape = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
-#     print(predicted/shape)
-#     
-#     predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
-#     print(predicted/shape)
+    # predicted,shape = MVG_classifier(DTR,LTR,DTE,LTE)
+    # print(predicted/shape)
+    
+    # predicted,shape = MVG_log(DTR,LTR,DTE,LTE)
+    # print(predicted/shape)
+    
+    # predicted,shape = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
+    # print(predicted/shape)
+    
+    # predicted,shape = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
+    # print(predicted/shape)
 # =============================================================================
 
     #KFoldValidation(D,L)
@@ -89,9 +94,9 @@ if __name__ == '__main__':
     # KFoldValidationLogisticRegression(DTR,L,lambdaVector) #PCA
 
     
-    C = [0.001,0.005,0.01,0.05,0.08,0.1,0.5,0.9]
+    # C = [0.001,0.005,0.01,0.05,0.08,0.1,0.5,0.9]
     # KFoldValidationSVM(D,L,C)
-    KFoldValidationSVM(DTR,L,C) #pca
+    # KFoldValidationSVM(DTR,L,C) #pca
 
 
 

@@ -254,3 +254,68 @@ def KFoldValidation(D,L):
 
     fileResults.close()
 
+
+def KFoldValidationGenerativeModels(D,L):
+    K = 8 
+    # N = int(D.shape[1]/K)
+    fileResults = open('ResultsfileGenerativeModelPCA.txt','w')
+    fileResults.writelines('partition \t mvg \t mvglog \t naive \t tied \n')
+
+    N = int(D.shape[1]/K)       
+
+    numpy.random.seed(0)
+    indexes = numpy.random.permutation(D.shape[1])
+
+    # stored ac0curacies
+    mvgPrecList=[]
+    mvgLogPrecList=[]
+    NaivePrecList=[]
+    tiedPrecList=[]
+
+    for i in range(K):
+
+        idxTest = indexes[i*N:(i+1)*N]
+
+        if i > 0:
+            idxTrainLeft = indexes[0:i*N]
+        elif (i+1) < K:
+            idxTrainRight = indexes[(i+1)*N:]
+
+        if i == 0:
+            idxTrain = idxTrainRight
+        elif i == K-1:
+            idxTrain = idxTrainLeft
+        else:
+            idxTrain = numpy.hstack([idxTrainLeft, idxTrainRight])
+        
+        DTR = D[:, idxTrain]
+        LTR = L[idxTrain]
+        DTE = D[:, idxTest]
+        LTE = L[idxTest]
+
+        predictedMVG,shapeMVG = MVG_classifier(DTR,LTR,DTE,LTE)
+        mvgPrec=predictedMVG/shapeMVG*100
+        mvgPrecList.append(mvgPrec)
+
+
+        predictedMVGLog,shapeMVGLog = MVG_log(DTR,LTR,DTE,LTE)
+        mvgLogPrec=predictedMVGLog/shapeMVGLog*100
+        mvgLogPrecList.append(mvgLogPrec)
+
+
+        predictedNaive,shapeNaive = NaiveBayesGaussianClassifier(DTR,LTR,DTE,LTE)
+        NaivePrec=predictedNaive/shapeNaive*100
+        NaivePrecList.append(NaivePrec)
+
+
+        predictedTied,shapeTied = TiedCovarianceGaussianClassifier(DTR,LTR,DTE,LTE)
+        tiedPrec=predictedTied/shapeTied*100
+        tiedPrecList.append(tiedPrec)
+
+       
+        fileResults.writelines(str(K)+" \t "+str(mvgPrec)+ " \t" + str(mvgLogPrec) +"\t"+ str(NaivePrec) +" \t "+str(tiedPrec) + "\n")
+   
+    # compute the mean
+    fileResults.writelines("means \t " + str(numpy.mean(mvgPrecList))+" \t "+ str(numpy.mean(mvgLogPrecList))+" \t "+str(numpy.mean(NaivePrecList))+" \t "+str(numpy.mean(tiedPrecList))+" \n ")
+    fileResults.close()
+
