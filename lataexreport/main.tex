@@ -272,35 +272,38 @@ Moreover, while performing k-fold with some classifiers, k = 8 appeared as an af
 concerning time consumption, whilst performing a decent classification (> 80\%).
 Hence every time the k-fold is performed, we are using k = 8.
 
-\subsection{Without previous analysis}
+\subsection{Generative models}
 
-In order to classify the data, different models have been taken into account:
-mutlivariate gaussian classifier, tied covariance, Naive Bayes through a k-fold approach.
- The results are shown in the table \ref{diffTypesclass}. So far, the MVG classifier
- overperforms the other two with a 81.5 \% accuracy.
+In order to classify the data, different genereative models have been taken into account:
+mutlivariate gaussian classifier, tied covariance, Naive Bayes through a k-fold approach including a PCA approach.
+ The results are shown in the table \ref{diffTypesclass}. In order to compute the values, we calculated t
+ 
+ The precision of the models seems to be similar, however the Multivariate  model has a
+ greater precision so far with 81.4 \% with PCA, and Naive Bayes performs the worst with 76 \% (without PCA). 
+ The explanation of the sligh worse performance of Naive Bayes  can be due to the fact that when we 
+ perform the diagonalization of the covariances, we do so by putting to zero the other elements
+  of the matrix, hence inevitably losing information. 
+
+ So far, from the table it can be taken that the MVG classifier with PCA is so far the best solution with
+  a 81.4 \% accuracy.
+
 \begin{table}
 \centering
- \begin{tabular}{||c c||} 
+ \begin{tabular}{||c c c||} 
     \hline \hline
-    Classifier & Accuracy (\%) \\
+    Classifier & Accuracy (\%) & Accuracy with PCA (\%)\\
     \hline\hline
-    Multivariate & 81.5  \\ 
+    Multivariate & 80.3 & 81.4  \\ 
     \hline
-    Tied Covariance & 79 \\
+    Tied Covariance & 79 & 79.7  \\
     \hline
-    Naive Bayes & 76.1 \\
+    Naive Bayes & 76 & 79.7 \\
     \hline \hline
 \end{tabular}
 \label{diffTypesclass}
 \caption{Different types of classifiers and their accuracy}
 \end{table}
 
-The precision of the models seems to be similar, however the tied covariance model has a
- greater precision so far with 81.44 \% and Naive Bayes performs the worst with 78.98 \%. 
- The explanation of the poor Naive Bayes performance can be due to the fact that when we 
- perform the diagonalization of the covariances, we do so by putting to zero the other elements
-  of the matrix, hence inevitably losing information. This loss of information might be the 
-  explanation of a worse performance than the other classifiers.  
 
 
 \end{document}
