@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.29)  14 JUN 2021 23:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.29)  5 JUL 2021 00:31
 entering extended mode
 **c:/Users/baldo/OneDrive/Escritorio/polito/ml/NewProject/lataexreport/main.tex
 (c:/Users/baldo/OneDrive/Escritorio/polito/ml/NewProject/lataexreport/main.tex
@@ -406,17 +406,48 @@ Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
 (babel)             (\language73). Reported on input line 105.
 Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 (babel)             (\language73). Reported on input line 108.
-)) (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
+)) (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+ (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+ (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/colortbl\colortbl.sty
+Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
+ (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/latex-tools\array.sty
+Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
+\col@sep=\dimen152
+\ar@mcellbox=\box51
+\extrarowheight=\dimen153
+\NC@list=\toks27
+\extratabsurround=\skip75
+\backup@length=\skip76
+\ar@cellbox=\box52
+)
+\everycr=\toks28
+\minrowclearance=\skip77
+)
+\rownum=\count402
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+) (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2019/10/16 v2.13 Sectioning titles
-\ttl@box=\box51
-\beforetitleunit=\skip75
-\aftertitleunit=\skip76
-\ttl@plus=\dimen152
-\ttl@minus=\dimen153
-\ttl@toksa=\toks27
-\titlewidth=\dimen154
-\titlewidthlast=\dimen155
-\titlewidthfirst=\dimen156
+\ttl@box=\box53
+\beforetitleunit=\skip78
+\aftertitleunit=\skip79
+\ttl@plus=\dimen154
+\ttl@minus=\dimen155
+\ttl@toksa=\toks29
+\titlewidth=\dimen156
+\titlewidthlast=\dimen157
+\titlewidthfirst=\dimen158
 ) (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/latex-tools\indentfirst.sty
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 ) (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\mathptmx.sty
@@ -455,59 +486,44 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
 LaTeX Info: Redefining \hbar on input line 50.
 ) (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count402
-\lst@gtempboxa=\box52
-\lst@token=\toks28
-\lst@length=\count403
-\lst@currlwidth=\dimen157
-\lst@column=\count404
-\lst@pos=\count405
-\lst@lostspace=\dimen158
-\lst@width=\dimen159
-\lst@newlines=\count406
-\lst@lineno=\count407
-\lst@maxwidth=\dimen160
+\lst@mode=\count403
+\lst@gtempboxa=\box54
+\lst@token=\toks30
+\lst@length=\count404
+\lst@currlwidth=\dimen159
+\lst@column=\count405
+\lst@pos=\count406
+\lst@lostspace=\dimen160
+\lst@width=\dimen161
+\lst@newlines=\count407
+\lst@lineno=\count408
+\lst@maxwidth=\dimen162
  (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count408
-\lst@skipnumbers=\count409
-\lst@framebox=\box53
+\c@lstnumber=\count409
+\lst@skipnumbers=\count410
+\lst@framebox=\box55
 ) (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
 ))
 Package: listings 2020/03/24 1.8d (Carsten Heinz)
- (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
-Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
- (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package xcolor Info: Driver file: pdftex.def on input line 225.
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
-Package xcolor Info: Model `RGB' extended on input line 1364.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-) (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+ (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
  (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count410
-\Gm@cntv=\count411
-\c@Gm@tempcnt=\count412
-\Gm@bindingoffset=\dimen161
-\Gm@wd@mp=\dimen162
-\Gm@odd@mp=\dimen163
-\Gm@even@mp=\dimen164
-\Gm@layoutwidth=\dimen165
-\Gm@layoutheight=\dimen166
-\Gm@layouthoffset=\dimen167
-\Gm@layoutvoffset=\dimen168
-\Gm@dimlist=\toks29
+\Gm@cnth=\count411
+\Gm@cntv=\count412
+\c@Gm@tempcnt=\count413
+\Gm@bindingoffset=\dimen163
+\Gm@wd@mp=\dimen164
+\Gm@odd@mp=\dimen165
+\Gm@even@mp=\dimen166
+\Gm@layoutwidth=\dimen167
+\Gm@layoutheight=\dimen168
+\Gm@layouthoffset=\dimen169
+\Gm@layoutvoffset=\dimen170
+\Gm@dimlist=\toks31
  (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
 
 Package geometry Warning: Over-specification in `h'-direction.
@@ -519,13 +535,13 @@ Package geometry Warning: Over-specification in `v'-direction.
 
 (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.sty
 Package: csquotes 2021-02-22 v5.2l context-sensitive quotations (JAW)
-\csq@reset=\count413
-\csq@gtype=\count414
-\csq@glevel=\count415
-\csq@qlevel=\count416
-\csq@maxlvl=\count417
-\csq@tshold=\count418
-\csq@ltx@everypar=\toks30
+\csq@reset=\count414
+\csq@gtype=\count415
+\csq@glevel=\count416
+\csq@qlevel=\count417
+\csq@maxlvl=\count418
+\csq@tshold=\count419
+\csq@ltx@everypar=\toks32
  (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.def
 File: csquotes.def 2021-02-22 v5.2l csquotes generic definitions (JAW)
 )
@@ -546,43 +562,43 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 120.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 121.
 (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 ) (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-05-07 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count419
-\l__pdf_internal_box=\box54
+\l__color_backend_stack_int=\count420
+\l__pdf_internal_box=\box56
 ) (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
  (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count420
-\scratchdimen=\dimen169
-\scratchbox=\box55
-\nofMPsegments=\count421
-\nofMParguments=\count422
-\everyMPshowfont=\toks31
-\MPscratchCnt=\count423
-\MPscratchDim=\dimen170
-\MPnumerator=\count424
-\makeMPintoPDFobject=\count425
-\everyMPtoPDFconversion=\toks32
+\scratchcounter=\count421
+\scratchdimen=\dimen171
+\scratchbox=\box57
+\nofMPsegments=\count422
+\nofMParguments=\count423
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count424
+\MPscratchDim=\dimen172
+\MPnumerator=\count425
+\makeMPintoPDFobject=\count426
+\everyMPtoPDFconversion=\toks34
 ) (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -618,23 +634,23 @@ Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (main.bbl)
-Package biblatex Info: Reference section=0 on input line 120.
-Package biblatex Info: Reference segment=0 on input line 120.
-LaTeX Info: Redefining \microtypecontext on input line 120.
+Package biblatex Info: Reference section=0 on input line 121.
+Package biblatex Info: Reference segment=0 on input line 121.
+LaTeX Info: Redefining \microtypecontext on input line 121.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 120.
+LaTeX Info: Redefining \showhyphens on input line 121.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
  (C:\Users\baldo\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-ptm.cfg
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
-\c@lstlisting=\count426
+\c@lstlisting=\count427
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -712,30 +728,38 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 <images//histograms.png, id=7, 925.056pt x 452.4102pt>
 File: images//histograms.png Graphic file (type png)
 <use images//histograms.png>
-Package pdftex.def Info: images//histograms.png  used on input line 194.
+Package pdftex.def Info: images//histograms.png  used on input line 195.
 (pdftex.def)             Requested size: 455.24342pt x 491.94379pt.
 <images//correlation_no_transformation.png, id=9, 462.528pt x 346.896pt>
 File: images//correlation_no_transformation.png Graphic file (type png)
 <use images//correlation_no_transformation.png>
-Package pdftex.def Info: images//correlation_no_transformation.png  used on input line 211.
+Package pdftex.def Info: images//correlation_no_transformation.png  used on input line 212.
 (pdftex.def)             Requested size: 455.26457pt x 351.41023pt.
- [2] [3] [4 <./images//histograms.png>] [5 <./images//correlation_no_transformation.png>] [6] [7] (main.aux)
+ [2] [3] [4 <./images//histograms.png>] [5 <./images//correlation_no_transformation.png>] [6]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7]
+Overfull \hbox (20.70468pt too wide) in paragraph at lines 377--395
+ [][] 
+ []
+
+[8] [9] (main.aux)
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 16161 strings out of 479163
- 279073 string characters out of 2853998
- 1083560 words of memory out of 3000000
- 33452 multiletter control sequences out of 15000+600000
- 436290 words of font info for 125 fonts, out of 8000000 for 9000
+ 16290 strings out of 479163
+ 280781 string characters out of 2853998
+ 1086667 words of memory out of 3000000
+ 33562 multiletter control sequences out of 15000+600000
+ 436810 words of font info for 133 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,8n,76p,806b,1762s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,9n,76p,806b,1762s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (7 pages, 90485 bytes).
+Output written on main.pdf (9 pages, 96658 bytes).
 PDF statistics:
- 44 PDF objects out of 1000 (max. 8388607)
+ 50 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  40459 words of extra memory for PDF output out of 42996 (max. 10000000)
 

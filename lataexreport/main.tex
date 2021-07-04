@@ -21,6 +21,7 @@ style=alphabetic
 \usepackage[utf8]{inputenc}
 \usepackage[spanish,english]{babel}
 
+\usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
 
 
 \usepackage{titlesec}
@@ -287,7 +288,7 @@ mutlivariate gaussian classifier, tied covariance, Naive Bayes through a k-fold 
  So far, from the table it can be taken that the MVG classifier with PCA is so far the best solution with
   a 81.4 \% accuracy.
 
-\begin{table}
+\begin{table}[H]
 \centering
  \begin{tabular}{||c c c||} 
     \hline \hline
@@ -304,11 +305,98 @@ mutlivariate gaussian classifier, tied covariance, Naive Bayes through a k-fold 
 \caption{Different types of classifiers and their accuracy}
 \end{table}
 
+
+\subsection{Logistic regression}
+For the logistic regression model we used  a k-fold approach (k =8), where in each 
+one we changed the value of lambda. The values of lambda tested where: 
+[1e-05, 0.0001, 0.0002, 0.0004, 0.0006, 0.001, 0.004, 0.01]. 
+This was done in order to try to get the best model possible.
+ This approach was performed with PCA too.
+The results are shown in table \ref{errorRateslinearregression}.
+
+
+As the results in the table \ref{errorRateslinearregression}, the linear regression
+without PCa, performed overall better than the model with the PCA.
+The best performance of the PCA model was with lambda = 0.0004 
+resulting in an error rate of 16.6. The model without PCA, outperforms the model 
+with PCA, with its best error rate being 14.4\% (see value in blue).
+
+\begin{table}
+    \centering
+     \begin{tabular}{||c c c ||} 
+        \hline \hline
+        lambda & PCA error rate (\%) & no PCA error rate(\%)\\
+        \hline\hline
+        1.e-5  & 18.34  & 18.8   \\ 
+        \hline
+        0.0001 & 19.21  &  17.5  \\ 
+        \hline
+        0.0002 & 20.1  &  14.8  \\ 
+        \hline
+        0.0004 & 16.6  &  \cellcolor{blue!25}  14.4  \\ 
+        \hline
+        0.006  & 24.9  & 21    \\ 
+        \hline
+        0.001  & 22.3  &  18.3  \\ 
+        \hline
+        0.004 & 20.5  &  20.5  \\ 
+        \hline
+        0.01  &  18.8 & 15.7   \\ 
+        \hline \hline
+    \end{tabular}
+    \label{errorRateslinearregression}
+    \caption{Error rates in (\%) for linear regression with (and without) PCA}
+    \end{table}
+
+
+\subsection{Confusion matrix}
+
+
+
+\subsection{SVM}
+
 \subsection{Gaussian mixture models}
 For this classsifiers we decided to choose as parameters alpha = 0.1, minimum value
 for the eigen vector 0.1. Moreover, we tested until gmm = 16 (1,2,4,8 and 16).
 
 The choice for this parameters was based on the laboratory 10. Once the results appeared,
-we didn't change the parameters due to two factors 
+we didn't change the parameters due to the fact that the results were satisfying (see table \ref{errorRatesGMMs})
+and that the computation for every case was too big to repeat. Hence, having
+decent results in precision we estimated that the the recomputation was not worth the 
+possibility of improvement.
+
+The results shown in table \ref{errorRatesGMMs}, illustrate that there is a tendency 
+when increasing the model's precision by augmenting the gmm (gmm =16 is the most precise model
+in every scenario). On one hand, the most precise model is the full covariance classifier with PCA previously computed,
+resulting in a 9.31\% error rate, versus 9.71 \% without PCA. On the other hand, with a lower complexity (gmm = 8),
+the precision is still good enough for the full covariance without PCA (11.8 \%).
+
+
+\begin{table}
+    \centering
+     \begin{tabular}{||c c c c c c c c||} 
+        \hline \hline
+        Classifier & gmm = 1 & gmm = 2 & gmm = 4 & gmm = 8 &gmm = 16 & PCA & k-fold\\
+        \hline\hline
+        Full covariance &  16.4 &  15.7 &  15.4 & \cellcolor{blue!25}  11.8 & \cellcolor{blue!25} 9.71 & No & 8  \\ 
+        \hline
+        Full covariance &  17 &  15.8 &  15.8 &  12.9 & \cellcolor{blue!25} 9.31 & Yes & 4  \\ 
+        \hline
+        Tied Covariance &  16.4 &  16.4 & 16.4 &  16.4 & 14.9  & No & 8  \\
+        \hline
+        Tied Covariance &  18.6 &  18.6 & 19 &  18.4 & 17.6  & Yes & 8  \\
+        \hline
+        Diagonal covariance  &  22 &  21.6 & 19.2 &  15.1 & 13.5  & No & 8 \\
+        \hline
+        Diagonal covariance &20.3 &  21.3 & 21.3&  16.8  & 16 & Yes & 8\\
+        \hline \hline
+    \end{tabular}
+    \label{errorRatesGMMs}
+    \caption{Error rates in (\%) for different GMM model classification}
+    \end{table}
+
+    
+
+\section{Model choice and results}
 
 \end{document}
