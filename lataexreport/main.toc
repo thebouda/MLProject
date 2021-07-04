@@ -9,4 +9,4 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.2}Classifiers}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.1}Without previous analysis}{7}{}%
+\contentsline {subsection}{\numberline {1.2.1}Generative models}{7}{}%

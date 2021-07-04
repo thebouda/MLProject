@@ -166,3 +166,43 @@ dualObj: [[-15.70615704]]
 
 
 #-----without pca third
+ c 0.01
+errorRate: 17.467249
+duality gap 0.002245
+primal : 9.026086147389062
+dualObj: [[-9.02384069]]
+
+
+ c 0.02
+errorRate: 19.213974
+duality gap 0.000003
+primal : 18.869523122511072
+dualObj: [[-18.86951981]]
+
+
+ c 0.03
+errorRate: 17.903930
+duality gap 0.029468
+primal : 30.49684014097065
+dualObj: [[-30.46737237]]
+
+
+ c 0.04
+errorRate: 14.410480
+duality gap 0.014367
+primal : 43.84987721983903
+dualObj: [[-43.83551037]]
+
+
+ c 0.05
+errorRate: 25.327511
+duality gap 5.655716
+primal : 64.00968580774668
+dualObj: [[-58.35396996]]
+
+
+ c 0.06
+errorRate: 20.960699
+duality gap 5.095635
+primal : 82.22509572773593
+dualObj: [[-77.12946039]]
