@@ -394,6 +394,94 @@ of 0.432 (which is the best among the 3 models).
 
 \subsection{SVM}
 
+We have performed the linear SVM with raw data and with PCA. The results
+with PCA, underperform the ones with raw data: the best error rate with PCA being
+17.9 \% and without PCA 14.4 \% (check results in tables \ref{errorRatesLinearSVM} and \ref{errorRatesLinearSVMNoPCA} respectively).
+
+However, the duality gap for the 17.9 \% error rate for PCA data is 119.13. This
+value stands out among the others as really elevated . This could make us think 
+that the reliability of the error rate obtained for c = 0.5 can be questioned.
+
+On the other side, the raw data performed well for c = 0.04 and c 0.05
+with both error rates being equal to 14.4 \% and the duality gap being 0
+ (check table \ref{errorRatesLinearSVMNoPCA} for results).
+
+\begin{table}[H]
+    \centering
+     \begin{tabular}{||c c c c||} 
+        \hline \hline
+            	 c 	& error rate &	 duality gap &	 primal \\ 
+                 \hline
+            	0.001	&   29.3 &	 0.0 	& 1.122 \\
+                \hline
+            	0.005 &   24.5 	& 0.0 &	 5.938 \\
+                \hline
+            	0.01	&   26.2 	 &0.0884 	& 13.15 \\
+                \hline
+            	0.05	&   30.1 	& 43.1	& 110.63 \\
+                \hline
+            	0.08	&   25.3 &	 6.11 &	 119.76 \\
+                \hline
+            	0.1	    &   23.14 	& 3.78	& 157.19 \\
+                \hline
+            	0.5	&    \cellcolor{blue!25} 17.9	& \cellcolor{red!25} 119.13	& 859.1 \\
+                \hline
+             	0.9	&   27.1 	& 342.73 	& 1057.13 \\
+        \hline \hline
+    \end{tabular}
+    \caption{Error rate in (\%) for different parameters in linear SVM with PCA \label{errorRatesLinearSVM}}
+\end{table}    
+
+
+\begin{table}[H]
+    \centering
+     \begin{tabular}{||c c c ||} 
+        \hline \hline
+            c& error Rate& duality gap \\
+            \hline \hline
+            0.001&29.7& 0 \\
+            \hline
+            0.004&20.5& 0.0056\\
+            \hline
+            0.005& 21.8& 0\\
+            \hline
+            0.006& 20.1& 0\\
+            \hline
+            0.007& 16.6& 0\\
+            \hline
+            0.008& 27.5& 0.0013\\
+            \hline
+            0.009& 20.5& 0.0001\\
+            \hline
+            0.01& 17.5& 0\\
+            \hline
+            0.02&19.2& 0\\
+            \hline
+            0.03& 17.9& 0.0295\\
+            \hline
+            0.04& \cellcolor{blue!25}14.4& 0.014\\
+            \hline
+            0.05& \cellcolor{blue!25}14.4& 0\\
+            \hline
+            0.06& 21& 5.095\\
+            \hline
+            0.08& 24.9& 1.645\\
+            \hline
+            0.1& 19.2& 0.586\\
+            \hline
+            0.5& 31.9& 2259.61\\
+            \hline
+            0.9& 18.8& 97\\
+\hline \hline
+    \end{tabular}
+    \caption{Error rate in (\%) for different parameters in linear SVM without PCA \label{errorRatesLinearSVMNoPCA}}
+\end{table}    
+
+
+
+
+
+
 \subsection{Gaussian mixture models}
 For this classsifiers we decided to choose as parameters alpha = 0.1, minimum value
 for the eigen vector 0.1. Moreover, we tested until gmm = 16 (1,2,4,8 and 16).
