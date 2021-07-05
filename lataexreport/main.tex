@@ -257,11 +257,17 @@ reduction of the large data set. Reducing the number of components or features c
     \item Transform the original data set X via W to obtain the new k-dimensional feature subspace Y.
 \end{enumerate}
 
-Analyzing the eigenvalues obtained,  we can see how almost all of the information
+Analyzing the eigenvalues obtained,  we can see in figure \ref{PCAChosenComponents} how almost all of the information
 can be obtained using 4 or 5 dimensions.
 By drawing the cumulative graph of the eigenvalues, the same conclusion can be extracted.
  -insert plot cumulative explained variance.png-
 Hence, PCA could be implemented and see if the accuracy improves significantly.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth,height=0.4\textheight]{cumulative_explained_variance.png}
+    \caption{Cumulative explained variance according to the number of components after PCA     \label{PCAChosenComponents} 
+    }
+\end{figure}
 
 
 \section{Classifiers}
@@ -524,7 +530,53 @@ the precision is still good enough for the full covariance without PCA (11.8 \%)
     
 
 \section{Model choice and results}
-With all the previously models taken into account, what appears to be best at
-classifying the data is the GMM model, specifically for gmm =16 with a full covariance
-and PCA applied:
+With all the previously models taken into account, basing ourselves solely 
+in the classification performance, what appears to be best at
+classifying the data is the GMM model , specifically for gmm =16 with a full covariance and PCA applied.
+
+However, with a punctual classification performance does not mean that the model
+will classify better the test data. In fact, with gmm = 16 it appears as 
+the model is overfitting itself to the training data.Therefore, considering 
+only one performance doesn't appear to be the best decision. The table \ref{errorRatesModels}
+takes the best classification result for every classifier.
+
+\begin{table}[H]
+    \centering
+     \begin{tabular}{||c c ||} 
+        \hline \hline
+        Classifier & error Rate (\%) \\
+        \hline\hline
+        GMM = 16 without PCA &  9.71   \\ 
+        \hline
+        GMM = 8 without PCA &  11.8  \\ 
+        \hline
+        GMM = 16 with PCA &  9.31    \\
+        \hline
+        Logistic regression (c = 0.0004 ) &  14.4   \\
+        \hline
+        MVG (with PCA)  &  18.6 \\
+        \hline
+        Optimal Bayes (MVG) & 14.5  \\
+        \hline
+        Linear SVM (c = 0.04)& 14.4  \\
+        \hline \hline
+    \end{tabular}
+    \caption{Error rates in (\%) for different classification models    \label{errorRatesModels}    }
+\end{table}
+
+What can be extracted from table \ref{errorRatesModels} is that an error rate of 
+around 14 \% seems to be normal for the classification. Moreover, we are
+discarding the GMM models with g =16 as it appears to be overfitting. 
+The model with MVG and PCA is discarded too because of its high error rate (18.6\%). Finally,
+eventhough the gmm for g =8 might be seen as overfitting, the GMM model overall performed
+better than the others, therefore for g = 8 this model would be a great middle point
+between a worse performance (15.4 \% for gmm = 4) and overfitting. 
+
+
+\textbf{Model chosen: GMM with g= 8 and no PCA}
+
+The resulting error for GMM = 8 and without PCA on the data was 14.87 \%, which
+is in the range of error rate that we have achieved with the other models in
+the train data.
+
 \end{document}
