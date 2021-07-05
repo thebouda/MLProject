@@ -122,6 +122,8 @@ def LBGAlgo(x, gmm, alpha,iter,minEigen):
     return GMM    
 
 
+
+
 def KFoldValidationFullGMMCovariance(D,L,alpha,minEigen,gmms):
     K = 8 
     # N = int(D.shape[1]/K)

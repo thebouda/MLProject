@@ -15,8 +15,8 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.2.3}Confusion matrix}{8}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.4}SVM}{8}{}%
+\contentsline {subsection}{\numberline {1.2.4}SVM}{9}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2.5}Gaussian mixture models}{8}{}%
+\contentsline {subsection}{\numberline {1.2.5}Gaussian mixture models}{9}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.3}Model choice and results}{8}{}%
+\contentsline {section}{\numberline {1.3}Model choice and results}{9}{}%

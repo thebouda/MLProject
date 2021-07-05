@@ -6,17 +6,20 @@ Created on Sat May  1 11:57:27 2021
 """
 
 # from naivebayesMVG import tiedCov
-from gmmclassificationdiagcov import LBDiagVariance
-from gmmclassificationgeneralfunctions import computeClassifications
 import numpy
+
+from gmmclassificationdiagcov import LBDiagVariance
+from gmmclassificationgeneralfunctions import computeClassifications, computeOneModelGmm,plotNormalDensityOverNormalizedHistogram
+
+from gmmclassificationfullcov import KFoldValidationFullGMMCovariance,LBGAlgo
+from gmmclassificationtiedcov import KFoldValidationTiedGMMCovariance
+
 from PCA import PCAfunct
 from GenerativeModels import MVG_classifier,MVG_log,NaiveBayesGaussianClassifier,TiedCovarianceGaussianClassifier,KFoldValidation
 from confusionMatrix import KFoldValidationConfusionMatrix
 from logisticRegression import KFoldValidationLogisticRegression
 from SVM import KFoldValidationSVM
 from GenerativeModels import KFoldValidationGenerativeModels
-from gmmclassificationfullcov import KFoldValidationFullGMMCovariance
-from gmmclassificationtiedcov import KFoldValidationTiedGMMCovariance
 def mcol(v):
     return v.reshape((v.size,1))
 
@@ -33,7 +36,6 @@ int_to_label = {
     9 : 'sulphates',
     10 : 'alcohol'
     }
-
 
 
 def load(fname):
@@ -114,15 +116,22 @@ if __name__ == '__main__':
 # parameters
     alpha = 0.1 # value for alpha
     minEigen = 0.01 # minimum values for eigenvectors
-    gmms = 5
+    gmms = 4
 # for full covariance
     #KFoldValidationFullGMMCovariance(D,L,alpha,minEigen,gmms) # without pca
-    KFoldValidationFullGMMCovariance(DTR,L) # with pca
+    # KFoldValidationFullGMMCovariance(DTR,L) # with pca
 
-    # computeClassifications(gmmTry=5, D,LBDiagVariance,minEigen,alpha,DTE,LTE)
 
 # # tied cov
 #     KFoldValidationTiedGMMCovariance(D,L,alpha,minEigen,gmms)
 #     KFoldValidationTiedGMMCovariance(DTR,L,alpha,minEigen,gmms)
 
 # diag cov
+    # KFoldValidationDiagGMMCovariance(D,L,alpha,minEigen,gmms):
+#     KFoldValidationDiagGMMCovariance(DTR,L,alpha,minEigen,gmms)
+
+# represnetation of the gmms
+    gmm16 = computeOneModelGmm(gmms,D,LBGAlgo,minEigen,alpha)
+    plotNormalDensityOverNormalizedHistogram(D.flatten(), gmm16)
+
+# offical classification for the gmm  =16

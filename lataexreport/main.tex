@@ -185,8 +185,8 @@ resumes the information related to the attributes.
  Total sulfur dioxide & [7,440] & Continuous \\
  \hline \hline
 \end{tabular}
-\label{RangeAndTypesAttributes}
-\caption{Range and types of the attributes}
+\caption{Range and types of the attributes \label{RangeAndTypesAttributes}
+}
 \end{table}
 
 
@@ -229,8 +229,8 @@ It can be extracted from the figure that the most correlated attributes are (7,1
          (7,3) & (density, residual sugar) &0.526 \\
          \hline  \hline
     \end{tabular}
-    \caption{Most correlated attributes}
-    \label{ResumeCorrelation}
+    \caption{Most correlated attributes     \label{ResumeCorrelation}
+    }
 \end{table}
 
 
@@ -294,15 +294,15 @@ mutlivariate gaussian classifier, tied covariance, Naive Bayes through a k-fold 
     \hline \hline
     Classifier & Accuracy (\%) & Accuracy with PCA (\%)\\
     \hline\hline
-    Multivariate & 80.3 & 81.4  \\ 
+    Multivariate & 80.3 & \cellcolor{blue!25} 81.4  \\ 
     \hline
     Tied Covariance & 79 & 79.7  \\
     \hline
     Naive Bayes & 76 & 79.7 \\
     \hline \hline
 \end{tabular}
-\label{diffTypesclass}
-\caption{Different types of classifiers and their accuracy}
+\caption{Different types of classifiers and their accuracy\label{diffTypesclass}
+}
 \end{table}
 
 
@@ -344,13 +344,52 @@ with PCA, with its best error rate being 14.4\% (see value in blue).
         0.01  &  18.8 & 15.7   \\ 
         \hline \hline
     \end{tabular}
-    \label{errorRateslinearregression}
-    \caption{Error rates in (\%) for linear regression with (and without) PCA}
+    \caption{Error rates in (\%) for linear regression with (and without) PCA     \label{errorRateslinearregression}
+    }
     \end{table}
 
 
 \subsection{Confusion matrix}
+Concerning the confusion matrix classification model, it has also been performed 
+using PCA and without PCA with a k-fold = 8.
+We have also take into account a prior of 0.5 for each class. By trying other priors
+the precision diminished. 
+Additionally, we decided to put a cost for a false positive of 2 (CFP = 2), while a cost
+for a false negative (CFN = 1). This decision was taken as we considered
+that missclassifying a "bad" quality wine is worse than missclassifying a 
+good quality wine.
 
+
+The results of computing the optimal Bayes decisions for the parameters previously chosen,
+are in the table \ref{errorRatesConfusionMatrix}. As it can be extracted from the table,
+using PCA results in a worse performance the raw data inn every classifier except for the
+Naive Bayes (with PCA 80.8 \% of precision versus 77.91 \%). 
+Additionally, the best model seems to be MVG with a precision of 85.5\% and a DCF normalized
+of 0.432 (which is the best among the 3 models).
+
+
+\begin{table}[H]
+    \centering
+     \begin{tabular}{||c c c c||} 
+        \hline \hline
+        Classifier & Tied & MVG  & Naive \\
+        \hline\hline
+        Precision (\%) &  81.86 & \cellcolor{blue!25}  85.5 & 77.91  \\ 
+        \hline
+        Precision (PCA)  &  79.2 &  80.55 & 80.8 \\ 
+        \hline
+        DCF &  0.274 &  0.216 & 0.286  \\   
+        \hline
+        DCF (PCA)  &  0.312 &  0.291 & 0.33  \\   
+        \hline
+        DCF normalized &  0.548 &\cellcolor{blue!25}  0.432 & 0.572  \\ 
+        \hline
+        DCF normalized (PCA)  &  0.624 &  0.582 & 0.662    \\ 
+        \hline \hline
+    \end{tabular}
+    
+    \caption{Precision in (\%) for different logistic regression models \label{errorRatesConfusionMatrix}}
+\end{table}
 
 
 \subsection{SVM}
@@ -372,7 +411,7 @@ resulting in a 9.31\% error rate, versus 9.71 \% without PCA. On the other hand,
 the precision is still good enough for the full covariance without PCA (11.8 \%).
 
 
-\begin{table}
+\begin{table}[H]
     \centering
      \begin{tabular}{||c c c c c c c c||} 
         \hline \hline
@@ -391,12 +430,13 @@ the precision is still good enough for the full covariance without PCA (11.8 \%)
         Diagonal covariance &20.3 &  21.3 & 21.3&  16.8  & 16 & Yes & 8\\
         \hline \hline
     \end{tabular}
-    \label{errorRatesGMMs}
-    \caption{Error rates in (\%) for different GMM model classification}
-    \end{table}
+    \caption{Error rates in (\%) for different GMM model classification    \label{errorRatesGMMs}    }
+\end{table}
 
     
 
 \section{Model choice and results}
-
+With all the previously models taken into account, what appears to be best at
+classifying the data is the GMM model, specifically for gmm =16 with a full covariance
+and PCA applied:
 \end{document}

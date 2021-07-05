@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.29)  5 JUL 2021 00:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.29)  5 JUL 2021 13:47
 entering extended mode
 **c:/Users/baldo/OneDrive/Escritorio/polito/ml/NewProject/lataexreport/main.tex
 (c:/Users/baldo/OneDrive/Escritorio/polito/ml/NewProject/lataexreport/main.tex
@@ -739,25 +739,28 @@ Package pdftex.def Info: images//correlation_no_transformation.png  used on inpu
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7]
-Overfull \hbox (20.70468pt too wide) in paragraph at lines 377--395
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8]
+Overfull \hbox (20.70468pt too wide) in paragraph at lines 416--433
  [][] 
  []
 
-[8] [9] (main.aux)
+[9] (main.aux)
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 16290 strings out of 479163
- 280781 string characters out of 2853998
- 1086667 words of memory out of 3000000
- 33562 multiletter control sequences out of 15000+600000
- 436810 words of font info for 133 fonts, out of 8000000 for 9000
+ 16306 strings out of 479163
+ 280937 string characters out of 2853998
+ 1086870 words of memory out of 3000000
+ 33563 multiletter control sequences out of 15000+600000
+ 437460 words of font info for 143 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,9n,76p,806b,1762s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/baldo/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (9 pages, 96658 bytes).
+Output written on main.pdf (9 pages, 98407 bytes).
 PDF statistics:
  50 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

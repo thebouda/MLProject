@@ -35,6 +35,31 @@ def computeClassifications(gmmTry,Dtotal,Algorithm,minEigen,alpha,DTE,LTE):
         print(str(errorRate) + "\n")
     return errorRateVec
 
+# function that computes one model of gmm, for a given gmm and data
+def computeOneModelGmm(gmms, Dtotal,Algorithm,minEigen,alpha):
+    mu_1 = numpy.mean(Dtotal,axis=1).reshape((Dtotal.shape[0], 1))
+    C_1 = numpy.cov(Dtotal).reshape((Dtotal.shape[0], Dtotal.shape[0]))
+    C_1= computeNewCovar(C_1,minEigen)
+    gmm_1 = [(1,mu_1,C_1)]
+    gmmLBG = Algorithm(Dtotal,gmm_1,alpha,gmms,minEigen)
+    return gmmLBG
+
+
+def plotNormalDensityOverNormalizedHistogram(dataset, gmm):
+    # Function used to plot the computed normal density over the normalized histogram
+    plt.figure()
+    plt.hist(dataset, bins=30, edgecolor='black', linewidth=0.5, density=True)
+    # Define an array of equidistant 1000 elements between -10 and 5
+    XPlot = numpy.linspace(-10, 5, 1000)
+    # We should plot the density, not the log-density, so we need to use np.exp
+    y = numpy.zeros(1000)
+    for i in range(len(gmm)):
+        y += gmm[i][0]*numpy.exp(GAU_logpdf(XPlot, gmm[i]
+                              [1], gmm[i][2])).flatten()
+    plt.plot(XPlot, y,
+             color="red", linewidth=3)
+    return
+
 
 def gmmValues(mu,sigma,w,gmm):
     newGMM = []
@@ -85,6 +110,11 @@ def logpdf_GMM(X,gmm):
 def logpdf_GAU_ND(x, mu, sigma):
     return numpy.diag(-(x.shape[0]/2)*numpy.log(2*numpy.pi)-(1/2)*(numpy.linalg.slogdet(sigma)[1])-(1/2)*numpy.dot(numpy.dot((x-mu).T,numpy.linalg.inv(sigma)),(x-mu)))
 
+
+def GAU_logpdf(x, mu, var):
+    # Function that computes the log-density of the dataset and returns it as a
+    # 1-dim array
+    return (-0.5*numpy.log(2*numpy.pi))-0.5*numpy.log(var)-(((x-mu)**2)/(2*var))
 
 
 def Estep(logdens, S):
