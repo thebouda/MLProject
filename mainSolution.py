@@ -8,8 +8,9 @@ Created on Sat May  1 11:57:27 2021
 # from naivebayesMVG import tiedCov
 import numpy
 
+from logisticRegression import logisticRegression
 from gmmclassificationdiagcov import LBDiagVariance
-from gmmclassificationgeneralfunctions import computeClassifications, computeOneModelGmm,plotNormalDensityOverNormalizedHistogram
+from gmmclassificationgeneralfunctions import computeClassifications, computeOneModelGmmClassification,plotNormalDensityOverNormalizedHistogram
 
 from gmmclassificationfullcov import KFoldValidationFullGMMCovariance,LBGAlgo
 from gmmclassificationtiedcov import KFoldValidationTiedGMMCovariance
@@ -70,7 +71,7 @@ if __name__ == '__main__':
     L=LTR
     
     DTR_PCA,DTE_PCA = PCAfunct(DTR,LTR,DTE)
-    DTE = DTE_PCA
+    # DTE = DTE_PCA
     DTR = DTR_PCA    
     # lambdaVector = [0.1e-4,1e-4, 2e-4, 4e-4, 6e-4, 10e-4, 40e-4, 100e-4]
     
@@ -116,7 +117,7 @@ if __name__ == '__main__':
 # parameters
     alpha = 0.1 # value for alpha
     minEigen = 0.01 # minimum values for eigenvectors
-    gmms = 4
+    gmms = 3
 # for full covariance
     #KFoldValidationFullGMMCovariance(D,L,alpha,minEigen,gmms) # without pca
     # KFoldValidationFullGMMCovariance(DTR,L) # with pca
@@ -131,7 +132,16 @@ if __name__ == '__main__':
 #     KFoldValidationDiagGMMCovariance(DTR,L,alpha,minEigen,gmms)
 
 # represnetation of the gmms
-    gmm16 = computeOneModelGmm(gmms,D,LBGAlgo,minEigen,alpha)
-    plotNormalDensityOverNormalizedHistogram(D.flatten(), gmm16)
-
+    # gmm16 = computeOneModelGmm(gmms,D,LBGAlgo,minEigen,alpha)
+    # numpy.save("gmm16",gmm16)
 # offical classification for the gmm  =16
+
+    # gmm16 = numpy.load("gmm16.npy") 
+    DTR0 =D[:,LTR ==0] 
+    DTR1 = D[:,LTR == 1]
+
+    # here start the classification
+    # Dtotal=[DTR0,DTR1,DTR2,DTR3,DTR4, DTR5, DTR6, DTR7, DTR8, DTR9, DTR10]
+    
+    Dtotal = [DTR0,DTR1]
+    # errors = computeOneModelGmmClassification(gmms,Dtotal,LBGAlgo,minEigen,alpha,DTE,LTE)

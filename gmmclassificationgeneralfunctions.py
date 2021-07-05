@@ -36,13 +36,32 @@ def computeClassifications(gmmTry,Dtotal,Algorithm,minEigen,alpha,DTE,LTE):
     return errorRateVec
 
 # function that computes one model of gmm, for a given gmm and data
-def computeOneModelGmm(gmms, Dtotal,Algorithm,minEigen,alpha):
-    mu_1 = numpy.mean(Dtotal,axis=1).reshape((Dtotal.shape[0], 1))
-    C_1 = numpy.cov(Dtotal).reshape((Dtotal.shape[0], Dtotal.shape[0]))
-    C_1= computeNewCovar(C_1,minEigen)
-    gmm_1 = [(1,mu_1,C_1)]
-    gmmLBG = Algorithm(Dtotal,gmm_1,alpha,gmms,minEigen)
-    return gmmLBG
+def computeOneModelGmmClassification(gmms, Dtotal,Algorithm,minEigen,alpha,DTE,LTE):
+
+
+    i = gmms
+    marginalLike = []
+
+    for j in range(len(Dtotal)): # for each class
+        mu_1 = numpy.mean(Dtotal[j],axis=1).reshape((Dtotal[j].shape[0], 1))
+
+        C_1 = numpy.cov(Dtotal[j]).reshape((Dtotal[j].shape[0], Dtotal[j].shape[0]))
+        C_1= computeNewCovar(C_1,minEigen)
+        gmm_1 = [(1,mu_1,C_1)]
+        
+
+        gmmLBG = Algorithm(Dtotal[j],gmm_1,alpha,i,minEigen)
+        marginalLike.append(logpdf_GMM(DTE,gmmLBG)[0])
+    stackedLike = numpy.vstack((marginalLike[0],marginalLike[1]))
+
+
+    predictions = numpy.argmax(stackedLike,axis = 0)
+    correctpredictions= numpy.array(predictions == LTE).sum()
+    errorRate = 100 - correctpredictions *100 /LTE.size
+    print("error Rate ")
+    print(str(errorRate) + "\n")
+
+    return errorRate
 
 
 def plotNormalDensityOverNormalizedHistogram(dataset, gmm):
