@@ -2,7 +2,6 @@
 """
 Created on Sun Jun 13 15:04:35 2021
 
-@author: simo6
 """
 
 import numpy
@@ -34,11 +33,11 @@ def PCAfunct(D,L,DT):
     P = U[:, ::-1][:, 0:5]
     DP = numpy.dot(P.T, D)
     DTE = numpy.dot(P.T,DT)
-    # plot_scatter(DP, L)
+    plot_scatter(DP, L)
     
     #drow cumulative expleined variance
-    # plt.plot(numpy.cumsum(reverse_explained_variance))
-    # plt.xlabel('number of components')
-    # plt.ylabel('cumulative explained variance')
-    # plt.savefig('cumulative_explained_variance')
+    plt.plot(numpy.cumsum(reverse_explained_variance))
+    plt.xlabel('number of components')
+    plt.ylabel('cumulative explained variance')
+    plt.savefig('cumulative_explained_variance')
     return DP,DTE 

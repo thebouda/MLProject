@@ -76,7 +76,6 @@ def svm(DTR,LTR,DTE,LTE,c):
     v=numpy.zeros(DTR.shape[1])    
     boundsL= [(0,c) for i in range(DTR.shape[1])]
         
-    # x,fx,d= scipy.optimize.fmin_l_bfgs_b(func = svmJ.computation,x0=v,approx_grad=False,bounds = boundsL, factr=1)
     x,fx,d= scipy.optimize.fmin_l_bfgs_b(func = svmJ.computation,fprime= svmJ.grad,x0=v,approx_grad=False,bounds = boundsL, factr=1000)
 
     # x is alfa

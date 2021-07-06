@@ -6,7 +6,7 @@ import matplotlib
 
 
 # file imports
-from loadData import load
+from dataRepresentation import load
 
 
 def colvec(vec):
@@ -148,7 +148,7 @@ if  __name__ == '__main__':
     accNaiveBayes = naivebayes(DTrain,LTrain,DTest,LTest)
     accTiedCov = tiedCov(DTrain,LTrain,DTest,LTest)
     #INTERESTING HOW IF we take 0.5 insteade of Nc/N we get better results
-    #it seems that asigning 0.5 probability is fair between having 
+    #it seems that asigning 0.5 probability is fair 
 
     print(accMVG)
     print(accNaiveBayes)

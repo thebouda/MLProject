@@ -1,10 +1,7 @@
 import numpy
-import scipy.optimize
-# from GMM_load import load_gmm
 import matplotlib.pyplot as plt
-# import sklearn.datasets as skl
 
-from gmmclassificationgeneralfunctions import gmmValues, computeClassifications,mcol,computeNewCovar,SplitGMM,logpdf_GAU_ND,logpdf_GMM,Estep
+from gmmclassificationgeneralfunctions import gmmValues, computeClassifications,mcol,computeNewCovar,SplitGMM,logpdf_GMM,Estep
 
 # ----  diagonal covariances
 def DiagoSigma(gmm):
@@ -21,10 +18,7 @@ def LBDiagVariance(x,gmm,alpha,iterations,minEigen):
     gmmDiag = [(gmm[0][0],gmm[0][1],computeNewCovar(gmm[0][2],psi))]
     gmmDiag = EMDiagAlgorithm(x,gmmDiag)
     for i in range(iterations):
-        # gmmResult = EMAlgorithm(x,newGMM) # the first
-        # newGMM = SplitGMM(gmmResult,alpha)
         gmmDiag = SplitGMM(gmmDiag,alpha)
-        # gmmDiag = DiagoSigma(gmmDiag)
         gmmDiag = EMDiagAlgorithm(x,gmmDiag)
     return gmmDiag
 
@@ -34,16 +28,14 @@ def DiagMstep(X, S, posterior):
     psi = 0.01
     # M-step: update the model parameters.
     Zg = numpy.sum(posterior, axis=1)  # 3
-    # print(Zg)
-    # Fg = np.array([np.sum(posterior[0, :].reshape(1, posterior.shape[1])* X, axis=1), np.sum(posterior[1, :].reshape(1, posterior.shape[1])* X, axis=1), np.sum(posterior[2, :].reshape(1, posterior.shape[1])*X, axis=1)])
-    # print(Fg)
+ 
     Fg = numpy.zeros((X.shape[0], S.shape[0]))  # 4x3
     for g in range(S.shape[0]):
         tempSum = numpy.zeros(X.shape[0])
         for i in range(X.shape[1]):
             tempSum += posterior[g, i] * X[:, i]
         Fg[:, g] = tempSum
-    # print(Fg)
+
     Sg = numpy.zeros((S.shape[0], X.shape[0], X.shape[0]))
     for g in range(S.shape[0]):
         tempSum = numpy.zeros((X.shape[0], X.shape[0]))
@@ -81,26 +73,19 @@ def EMDiagAlgorithm(x,gmm):
         oldLLR = numpy.sum(logdens4)/len(logdens4)
 
         #  E step
-        # responsabilities1 = computeResponsabilities(x,gmm)
         responsabilities = Estep(logdens4, s4)
 
         # m step
         
-        # todo aqui hay algo que no va porque la dimension de gmm es diferente y no cge los pessos
         (w, mu, cov) = DiagMstep(x, s4, responsabilities)
 
-        # (w_no, mu_no, sigma_no) = ComputeMstep(x, s4, responsabilities)
 
         newGMM = gmmValues(mu,cov,w,gmm)
-        # newGMM = gmmValues(mu_no,sigma_no,w_no,gmm)
 
         (newlogdens4, s4) = logpdf_GMM(x,newGMM)
         newLLR = numpy.sum(newlogdens4)/len(newlogdens4)
 
         diffLLR = newLLR-oldLLR
-        # print("old llr"+ str(oldLLR) )
-        # print ("new llr \n"+ str(newLLR))
-        # print("diff llr \n" +str(diffLLR))
         gmm =newGMM
         delta = abs(diffLLR) <  threshold
         if delta:
@@ -108,19 +93,13 @@ def EMDiagAlgorithm(x,gmm):
           
             
     finalGMM = newGMM
-    
-    # print("final gmm \n")
-    # print(finalGMM)
-    # print("\n")
-    # print("expected gmm \n")
-    # print(EMSolution)
+  
     return finalGMM
 
 
 
 def KFoldValidationDiagGMMCovariance(D,L,alpha,minEigen,gmms):
     K = 8 
-    # N = int(D.shape[1]/K)
 
 
     N = int(D.shape[1]/K)       
@@ -156,8 +135,6 @@ def KFoldValidationDiagGMMCovariance(D,L,alpha,minEigen,gmms):
         DTR0 =DTR[:,LTR ==0] 
         DTR1 = DTR[:,LTR == 1]
    
-        # here start the classification
-        # Dtotal=[DTR0,DTR1,DTR2,DTR3,DTR4, DTR5, DTR6, DTR7, DTR8, DTR9, DTR10]
         
         Dtotal = [DTR0,DTR1]
         errors = computeClassifications(gmms,Dtotal,LBDiagVariance,minEigen,alpha,DTE,LTE)

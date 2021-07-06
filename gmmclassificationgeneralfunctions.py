@@ -7,14 +7,11 @@ import matplotlib.pyplot as plt
 def computeClassifications(gmmTry,Dtotal,Algorithm,minEigen,alpha,DTE,LTE):
     
     errorRateVec = []
-    # for i in range(5):
     for i in range(gmmTry):
         marginalLike = []
 
         for j in range(len(Dtotal)): # for each class
-            # j= 1
             mu_1 = numpy.mean(Dtotal[j],axis=1).reshape((Dtotal[j].shape[0], 1))
-            # mu_1 = mu_1.reshape((1,1))
 
             C_1 = numpy.cov(Dtotal[j]).reshape((Dtotal[j].shape[0], Dtotal[j].shape[0]))
             C_1= computeNewCovar(C_1,minEigen)
@@ -37,7 +34,6 @@ def computeClassifications(gmmTry,Dtotal,Algorithm,minEigen,alpha,DTE,LTE):
 
 # function that computes one model of gmm, for a given gmm and data
 def computeOneModelGmmClassification(gmms, Dtotal,Algorithm,minEigen,alpha,DTE,LTE):
-
 
     i = gmms
     marginalLike = []
@@ -64,20 +60,6 @@ def computeOneModelGmmClassification(gmms, Dtotal,Algorithm,minEigen,alpha,DTE,L
     return errorRate
 
 
-def plotNormalDensityOverNormalizedHistogram(dataset, gmm):
-    # Function used to plot the computed normal density over the normalized histogram
-    plt.figure()
-    plt.hist(dataset, bins=30, edgecolor='black', linewidth=0.5, density=True)
-    # Define an array of equidistant 1000 elements between -10 and 5
-    XPlot = numpy.linspace(-10, 5, 1000)
-    # We should plot the density, not the log-density, so we need to use np.exp
-    y = numpy.zeros(1000)
-    for i in range(len(gmm)):
-        y += gmm[i][0]*numpy.exp(GAU_logpdf(XPlot, gmm[i]
-                              [1], gmm[i][2])).flatten()
-    plt.plot(XPlot, y,
-             color="red", linewidth=3)
-    return
 
 
 def gmmValues(mu,sigma,w,gmm):
@@ -116,7 +98,6 @@ def SplitGMM(gmm,alpha):
 
 def logpdf_GMM(X,gmm):
    
-    # S= numpy.zeros((numpy.shape(gmm)[1], X.shape[1]))
     S = numpy.zeros((len(gmm), X.shape[1]))
     for i in range(len(gmm)):
         S[i,:] = logpdf_GAU_ND(X,gmm[i][1], gmm[i][2])
@@ -131,12 +112,9 @@ def logpdf_GAU_ND(x, mu, sigma):
 
 
 def GAU_logpdf(x, mu, var):
-    # Function that computes the log-density of the dataset and returns it as a
-    # 1-dim array
+    # computes log density and returns 1-dim array
     return (-0.5*numpy.log(2*numpy.pi))-0.5*numpy.log(var)-(((x-mu)**2)/(2*var))
 
 
 def Estep(logdens, S):
-    # E-step: compute the POSTERIOR PROBABILITY (=responsibilities) for each component of the GMM
-    # for each sample, using the previous estimate of the model parameters.
     return numpy.exp(S-logdens.reshape(1, logdens.size))

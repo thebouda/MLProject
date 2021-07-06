@@ -118,10 +118,17 @@ style=alphabetic
  
 % \title{Machine learning and pattern recognition project}
 \usepackage{csquotes}
+
+\title{Machine Learning Project}
+\author{
+    Simone Grimaldi S260770 \\
+Alfredo Baldó Chamorro     S288347\\}
 \begin{document}
 
+\maketitle
 \tableofcontents
 
+\newpage
 \newpage
 
 
@@ -198,12 +205,11 @@ resumes the information related to the attributes.
 \end{figure}
 
 \subsection{Correlations}
-
-The image \ref{CorrelationRaw} illustrates the correlation between the attributes in the dataset. 
+The range of the each attribute is stated in the table \ref{RangeAndTypesAttributes}.
+Moreover, the image \ref{CorrelationRaw} illustrates the correlation between the attributes in the dataset. 
 It can be extracted from the figure that the most correlated attributes are (7,10), (6,5) (6,3) and 
 (7,3) (see table \ref{ResumeCorrelation}).  Even though the correlation is higher in those attributes,
  the values are still unimportant (lower than 0.8) in order to consider a strong correlation between them.
-  CONTINUE ANALYSISSSSSSS
 
 
 
@@ -257,10 +263,9 @@ reduction of the large data set. Reducing the number of components or features c
     \item Transform the original data set X via W to obtain the new k-dimensional feature subspace Y.
 \end{enumerate}
 
-Analyzing the eigenvalues obtained,  we can see in figure \ref{PCAChosenComponents} how almost all of the information
+Analyzing the eigenvalues obtained,  we extracct from figure \ref{PCAChosenComponents} how almost all of the information
 can be obtained using 4 or 5 dimensions.
 By drawing the cumulative graph of the eigenvalues, the same conclusion can be extracted.
- -insert plot cumulative explained variance.png-
 Hence, PCA could be implemented and see if the accuracy improves significantly.
 \begin{figure}[H]
     \centering
@@ -273,25 +278,25 @@ Hence, PCA could be implemented and see if the accuracy improves significantly.
 \section{Classifiers}
 In order to perform the classification, we have performedd cross validation on the 
 training set with k = 8.
-The decision for that value of k was taken due to one major factor: time.In fact, the size of the sample being 
+The decision for that value of k was taken due to one major factor: time. In fact, the size of the sample being 
 1839, the leave-one-out method was discarded due to time needed to perform it.
 Moreover, while performing k-fold with some classifiers, k = 8 appeared as an affordable value 
 concerning time consumption, whilst performing a decent classification (> 80\%).
-Hence every time the k-fold is performed, we are using k = 8.
+Hence every time the k-fold is performed, we are using k = 8 unless stated otherwise.
 
 \subsection{Generative models}
 
 In order to classify the data, different genereative models have been taken into account:
 mutlivariate gaussian classifier, tied covariance, Naive Bayes through a k-fold approach including a PCA approach.
- The results are shown in the table \ref{diffTypesclass}. In order to compute the values, we calculated t
- 
+ The results are shown in the table \ref{diffTypesclass}. 
+
  The precision of the models seems to be similar, however the Multivariate  model has a
  greater precision so far with 81.4 \% with PCA, and Naive Bayes performs the worst with 76 \% (without PCA). 
  The explanation of the sligh worse performance of Naive Bayes  can be due to the fact that when we 
- perform the diagonalization of the covariances, we do so by putting to zero the other elements
+ perform the diagonalization of the covariances, we do so by putting zero in the other elements
   of the matrix, hence inevitably losing information. 
 
- So far, from the table it can be taken that the MVG classifier with PCA is so far the best solution with
+ So far, from the table it can be extracted that the MVG classifier with PCA is so far the best solution with
   a 81.4 \% accuracy.
 
 \begin{table}[H]
@@ -322,7 +327,7 @@ The results are shown in table \ref{errorRateslinearregression}.
 
 
 As the results in the table \ref{errorRateslinearregression}, the linear regression
-without PCa, performed overall better than the model with the PCA.
+without PCA, performed overall better than the model with the PCA.
 The best performance of the PCA model was with lambda = 0.0004 
 resulting in an error rate of 16.6. The model without PCA, outperforms the model 
 with PCA, with its best error rate being 14.4\% (see value in blue).
@@ -355,11 +360,11 @@ with PCA, with its best error rate being 14.4\% (see value in blue).
     \end{table}
 
 
-\subsection{Confusion matrix}
+\subsection{Confusion matrix and Optimal Bayes}
 Concerning the confusion matrix classification model, it has also been performed 
-using PCA and without PCA with a k-fold = 8.
+using PCA and without PCA, each done with a k-fold = 8.
 We have also take into account a prior of 0.5 for each class. By trying other priors
-the precision diminished. 
+the precision diminished, therefore we decided to stick with a prior of 0.5. 
 Additionally, we decided to put a cost for a false positive of 2 (CFP = 2), while a cost
 for a false negative (CFN = 1). This decision was taken as we considered
 that missclassifying a "bad" quality wine is worse than missclassifying a 
@@ -370,8 +375,9 @@ The results of computing the optimal Bayes decisions for the parameters previous
 are in the table \ref{errorRatesConfusionMatrix}. As it can be extracted from the table,
 using PCA results in a worse performance the raw data inn every classifier except for the
 Naive Bayes (with PCA 80.8 \% of precision versus 77.91 \%). 
-Additionally, the best model seems to be MVG with a precision of 85.5\% and a DCF normalized
-of 0.432 (which is the best among the 3 models).
+Finally, the best model seems to be MVG with a precision of 85.5\% and a DCF normalized
+of 0.432 (which is the best among the 3 models), which means that implementing the model has 
+a positive impact in the classification.
 
 
 \begin{table}[H]
@@ -401,16 +407,20 @@ of 0.432 (which is the best among the 3 models).
 \subsection{SVM}
 
 We have performed the linear SVM with raw data and with PCA. The results
-with PCA, underperform the ones with raw data: the best error rate with PCA being
+with PCA underperform the ones with raw data: the best error rate with PCA being
 17.9 \% and without PCA 14.4 \% (check results in tables \ref{errorRatesLinearSVM} and \ref{errorRatesLinearSVMNoPCA} respectively).
 
 However, the duality gap for the 17.9 \% error rate for PCA data is 119.13. This
 value stands out among the others as really elevated . This could make us think 
 that the reliability of the error rate obtained for c = 0.5 can be questioned.
 
-On the other side, the raw data performed well for c = 0.04 and c 0.05
-with both error rates being equal to 14.4 \% and the duality gap being 0
+On the other side, the raw data performed well for c = 0.04 and c = 0.05
+with both error rates being equal to 14.4 \% while the duality gap being 0
  (check table \ref{errorRatesLinearSVMNoPCA} for results).
+
+After performing linear SVM and having some satisifying results with the 
+classification, we decided not to proceed with the kernel SVM due to the high
+computational time that took to perform the linear SVM.
 
 \begin{table}[H]
     \centering
@@ -495,12 +505,14 @@ for the eigen vector 0.1. Moreover, we tested until gmm = 16 (1,2,4,8 and 16).
 The choice for this parameters was based on the laboratory 10. Once the results appeared,
 we didn't change the parameters due to the fact that the results were satisfying (see table \ref{errorRatesGMMs})
 and that the computation for every case was too big to repeat. Hence, having
-decent results in precision we estimated that the the recomputation was not worth the 
+decent precision results we estimated that the the recomputation was not worth the 
 possibility of improvement.
 
 The results shown in table \ref{errorRatesGMMs}, illustrate that there is a tendency 
 when increasing the model's precision by augmenting the gmm (gmm =16 is the most precise model
-in every scenario). On one hand, the most precise model is the full covariance classifier with PCA previously computed,
+in every scenario), this could be due to overfitting as the error rate of this 
+method outperforms other models so far (9\% against around 15\% for other models).
+ On one hand, the most precise model is the full covariance classifier with PCA previously computed,
 resulting in a 9.31\% error rate, versus 9.71 \% without PCA. On the other hand, with a lower complexity (gmm = 8),
 the precision is still good enough for the full covariance without PCA (11.8 \%).
 

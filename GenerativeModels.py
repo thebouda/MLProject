@@ -2,7 +2,6 @@
 """
 Created on Sun Jun 13 15:10:43 2021
 
-@author: simo6
 """
 
 import numpy
@@ -254,7 +253,7 @@ def KFoldValidation(D,L):
 
     fileResults.close()
 
-
+# kfold for different models
 def KFoldValidationGenerativeModels(D,L):
     K = 8 
     # N = int(D.shape[1]/K)

@@ -36,28 +36,20 @@ def split_db_2to1(D, L, seed=0):
 def EMAlgo(X, gmm):
     
     flag = True
-    # count is used to count iterations
-    # count = 0
+  
     while(flag):
-        # count += 1
-        # Given the training set and the initial model parameters, compute
-        # log marginal densities and sub-class conditional densities
+        # log  densities 
         (logdens, S) = logpdf_GMM(X, gmm)
-        # Compute the AVERAGE loglikelihood, by summing all the log densities and
-        # dividing by the number of samples (it's as if we're computing a mean)
+        # average loglikelihood
         LLR1 = numpy.sum(logdens)/X.shape[1]
         # ------ E-step ----------
         # responsabilities
         posterior = Estep(logdens, S)
-        
 
         # ------ M-step ----------
         (w_gt_1, mu_gt_1, sigma_gt_1) = ComputeMstep(X, S, posterior)
-        
-        # for g in range(len(gmm)):
-        #     # Update the model parameters that are in gmm
-        #     gmm[g] = (w[g], mu[:, g].reshape((mu.shape[0], 1)), cov[g])
 
+        # update model params
         gmm =gmmValues(mu_gt_1,sigma_gt_1,w_gt_1,gmm)
 
         # Compute the new log densities and the new sub-class conditional densities
@@ -66,25 +58,20 @@ def EMAlgo(X, gmm):
 
         if (LLR2-LLR1 < 10**(-6)):
             flag = False
-        # if (LLR2-LLR1 < 0):
-        #     print("ERROR, LOG-LIKELIHOOD IS NOT INCREASING")
-  
     return gmm
 
 def ComputeMstep(X, S, posterior):
     psi = 0.01
-    # M-step: update the model parameters.
     Zg = numpy.sum(posterior, axis=1)  # 3
-    # print(Zg)
-    # Fg = np.array([np.sum(posterior[0, :].reshape(1, posterior.shape[1])* X, axis=1), np.sum(posterior[1, :].reshape(1, posterior.shape[1])* X, axis=1), np.sum(posterior[2, :].reshape(1, posterior.shape[1])*X, axis=1)])
-    # print(Fg)
+    
     Fg = numpy.zeros((X.shape[0], S.shape[0]))  # 4x3
     for g in range(S.shape[0]):
         tempSum = numpy.zeros(X.shape[0])
         for i in range(X.shape[1]):
             tempSum += posterior[g, i] * X[:, i]
         Fg[:, g] = tempSum
-    # print(Fg)
+
+   
     Sg = numpy.zeros((S.shape[0], X.shape[0], X.shape[0]))
     for g in range(S.shape[0]):
         tempSum = numpy.zeros((X.shape[0], X.shape[0]))
@@ -92,36 +79,36 @@ def ComputeMstep(X, S, posterior):
             tempSum += posterior[g, i] * numpy.dot(X[:, i].reshape(
                 (X.shape[0], 1)), X[:, i].reshape((1, X.shape[0])))
         Sg[g] = tempSum
-    # print(Sg)
+ 
+
     mu = Fg / Zg
     prodmu = numpy.zeros((S.shape[0], X.shape[0], X.shape[0]))
     for g in range(S.shape[0]):
         prodmu[g] = numpy.dot(mu[:, g].reshape((X.shape[0], 1)),
                            mu[:, g].reshape((1, X.shape[0])))
-    # print(prodmu)
-    # print(np.dot(mu, mu.T).reshape((1, mu.shape[0], mu.shape[0]))) NO, it is wrong
+    
+    
     cov = Sg / Zg.reshape((Zg.size, 1, 1)) - prodmu
-    # The following two lines of code are used to model the constraints
+
+    # constraint for the covariance
     for g in range(S.shape[0]):
         U, s, Vh = numpy.linalg.svd(cov[g])
         s[s < psi] = psi
         cov[g] = numpy.dot(U, mcol(s)*U.T)
-    # print(cov)
+
     w = Zg/numpy.sum(Zg)
-    # print(w)
+
     return (w, mu, cov)
 
 def LBGAlgo(x, gmm, alpha,iter,minEigen):
    
-    GMM =  [(gmm[0][0],gmm[0][1],computeNewCovar(gmm[0][2],minEigen))]
-    GMM = EMAlgo(x,GMM)
+    gmm1 =  [(gmm[0][0],gmm[0][1],computeNewCovar(gmm[0][2],minEigen))]
+    gmm1 = EMAlgo(x,gmm1)
     for i in range(iter):
-        GMM = SplitGMM(GMM,alpha)       
-        GMM = EMAlgo(x,GMM)
+        gmm1 = SplitGMM(gmm1,alpha)       
+        gmm1 = EMAlgo(x,gmm1)
 
-    return GMM    
-
-
+    return gmm1    
 
 
 def KFoldValidationFullGMMCovariance(D,L,alpha,minEigen,gmms):

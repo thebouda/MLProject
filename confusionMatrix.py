@@ -46,7 +46,7 @@ def mvgLLR(DTrain,LTrain,DTest,LTest,prior0):
 
   return llrMVG
 
-# compñute the llr for the tied cov
+# compuute the llr for the tied cov
 def tiedCovLLR(DTrain,LTrain,DTest,LTest,prior0):
   (mu0,var0),(mu1,var1)= computeVarMed(DTrain,LTrain)
   defVar= secMethodTiedCov(var0,var1,DTrain,LTrain)
@@ -220,9 +220,7 @@ def confusionMatrix(DTrain,LTrain,DTest,LTest,i):
     CFP =2 # 2 scelta
 
 
-    # punto di vista di constumer
-    # fileConfMatrix.writelines('CFN' + '\t ' + 'CFP' + '\t' + 'optimal bayes NB' + '\t' + 'optimal bayes  mvg' + '\t' + 'optimal bayes Tied Cov' +)
-
+  
     print ('\n')
     print("--------partition"+str(i)+"-------")
     

@@ -1,9 +1,7 @@
-
-
 """
 Created on Thu May  6
 
-@author: alfredo
+
 """
 
 #%% import libraries
@@ -13,13 +11,13 @@ import scipy.linalg
 import matplotlib.pyplot as plt
 import matplotlib
 
-#%% 
+
 # file imports
-from loadData import load
+from dataRepresentation import load
 
 """         start of code       """
 
-#%% 
+#
 def colvec(vec):
   return vec.reshape(numpy.size(vec,0),1)
 
@@ -64,22 +62,33 @@ def ldaCalcu(mu,d,l):
   sw=sw/d.shape[1]
 
   return sb,sw
-#%% 
+
 # get the direction of the lda
 def directionsLDA(sb,sw,D):
   s,U=scipy.linalg.eigh(sb,sw)
   w=U[:,::-1]
   dp = numpy.dot(w.T,D)
   return dp
-#%% extracting the values of the wines
+# extracting the values of the wines
 
-#%% drawing function
+
+ 
+
+# diagonalization of the matrix
+def diagonalization(sw,sb,D):
+  U, s, _ = numpy.linalg.svd(sw)
+  P1 = numpy.dot(U * vrow(1.0/(s**0.5)), U.T)
+  sbt=numpy.dot(numpy.dot(P1,sb),P1.T)
+  s2,P2 = numpy.linalg.eigh(sbt)
+  P2 = P2[:,::-1] # reorder
+  w =numpy.dot(P1.T,P2) # transformation matrix
+  allTrans = numpy.dot(w.T,D)
+
+  return allTrans
+
+
+
 def drawings(D,L):
-  theAtt={
-    0:'low_quality',
-    1:'high_quality'
-  }
-
   theCarac={
     0 : 'fixed acidity',
     1 :'volatile acidity',
@@ -92,10 +101,12 @@ def drawings(D,L):
     8 : 'pH',
     9 : 'sulphates',
     10 : 'alcohol'
+}
+  
+  theAtt={
+    0:'low_quality',
+    1:'high_quality'
   }
-
-
-  # extracting the values for each wine goodd or bad 
   l0 = (L==0)
   l1 = (L==1)
 
@@ -103,62 +114,46 @@ def drawings(D,L):
   D1 = D[:,l1]
   
   # we represent the matrix of caracters
-  # fig,axs =plt.subplots(len(theCarac),len(theCarac))
-  # fig,axs =plt.subplots()
+  fig,axs =plt.subplots(len(theCarac),len(theCarac))
+  fig,axs =plt.subplots()
 
   for carac in theCarac:
     for secondCarac  in theCarac:
       if (secondCarac >carac):
 
-        # axs[carac,secondCarac].scatter(D0[carac,:],D0[secondCarac,:], label=theAtt[0])
-        # axs[carac,secondCarac].scatter(D0[carac,:],D0[secondCarac,:], label=theAtt[0])
-        # axs[carac,secondCarac].legend()
-        # axs[carac,secondCarac].set_title('x='+ theCarac[carac] + ' y= '+ theCarac[secondCarac] )
         plt.figure()
         plt.scatter(D0[carac,:],D0[secondCarac,:], label=theAtt[0])
         plt.scatter(D1[carac,:],D1[secondCarac,:], label=theAtt[1])
         plt.legend()
         plt.title('x='+ theCarac[carac] + ' y= '+ theCarac[secondCarac] )
-        # plt.show()
+        plt.show()
         fileName = 'x='+ theCarac[carac] + ' y= '+ theCarac[secondCarac] +'SECONDLDA'
         plt.savefig(fileName) # save the files
-  return 0
-#%% load the data
-DTrain,LTrain =load('Data/Train.txt')
+  
 
-# %% compute the calculations
-# get the covariance matrix
-muTrain, Ctrain =covMatrix(DTrain,LTrain)
+if __name__ == '__main__':
+    
+  # load the data
+  DTrain,LTrain =load('Data/Train.txt')
 
-# get the lda values
-sbTrain,swTrain=ldaCalcu(muTrain,DTrain,LTrain)
+  #compute the calculations
+  # get the covariance matrix
+  muTrain, Ctrain =covMatrix(DTrain,LTrain)
 
-
-# %%
-ldaDirections=directionsLDA(sbTrain,swTrain,DTrain)
-
-# get the representation with the lda
-drawings(ldaDirections,LTrain)
-# get the representation without the lda
-drawings(DTrain,LTrain)
+  # get the lda values
+  sbTrain,swTrain=ldaCalcu(muTrain,DTrain,LTrain)
 
 
-#%% diagonalization of the matrix
-def diagonalization(sw,sb,D):
-  U, s, _ = numpy.linalg.svd(sw)
-  P1 = numpy.dot(U * vrow(1.0/(s**0.5)), U.T)
-  sbt=numpy.dot(numpy.dot(P1,sb),P1.T)
-  s2,P2 = numpy.linalg.eigh(sbt)
-  P2 = P2[:,::-1] # reorder
-  w =numpy.dot(P1.T,P2) # transformation matrix
-  allTrans = numpy.dot(w.T,D)
 
-  return allTrans
+  ldaDirections=directionsLDA(sbTrain,swTrain,DTrain)
 
-# %%
-transformedMatrix=diagonalization(swTrain,sbTrain,DTrain)
+  # get the representation with the lda
+  drawings(ldaDirections,LTrain)
+  # get the representation without the lda
+  drawings(DTrain,LTrain)
 
-# %%
-drawings(transformedMatrix,LTrain)
+  transformedMatrix=diagonalization(swTrain,sbTrain,DTrain)
 
-# %%
+  # draw results
+  drawings(transformedMatrix,LTrain)
+

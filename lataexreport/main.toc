@@ -1,0 +1,22 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {english}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Dataset}{3}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.1}Correlations}{3}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.2}PCA - Principal Component Analysis}{7}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Classifiers}{8}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.1}Generative models}{8}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.2}Logistic regression}{9}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.3}Confusion matrix and Optimal Bayes}{10}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.4}SVM}{10}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.5}Gaussian mixture models}{12}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.3}Model choice and results}{12}{}%

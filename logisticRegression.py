@@ -2,7 +2,6 @@
 """
 Created on Sun Jun 13 16:48:57 2021
 
-@author: simo6
 """
 
 # code for computing logistic regression

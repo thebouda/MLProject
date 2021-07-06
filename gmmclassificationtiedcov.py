@@ -7,21 +7,15 @@ import matplotlib.pyplot as plt
 from gmmclassificationgeneralfunctions import gmmValues, computeClassifications,mcol,computeNewCovar,SplitGMM,logpdf_GAU_ND,logpdf_GMM,Estep
 
 
+# similar to the em algorithm  but different constrint for the covarinace
 def TiedEMalgorithm(X, gmm):
-    # The algorithm consists of two steps, E-step and M-step
-    # flag is used to exit the while when the difference between the loglikelihoods
-    # becomes smaller than 10^(-6)
+    # flag is used to exit the if llr1-llr2 < threshold in this case 1e-6
     flag = True
-    # count is used to count iterations
-    count = 0
+    
     while(flag):
-        count += 1
-        # Given the training set and the initial model parameters, compute
-        # log marginal densities and sub-class conditional densities
+      
         (logdens, S) = logpdf_GMM(X, gmm)
-        # Compute the AVERAGE loglikelihood, by summing all the log densities and
-        # dividing by the number of samples (it's as if we're computing a mean)
-        loglikelihood1 = numpy.sum(logdens)/X.shape[1]
+        LLR1 = numpy.sum(logdens)/X.shape[1]
         # ------ E-step ----------
         posterior = Estep(logdens, S)
         # ------ M-step ----------
@@ -31,28 +25,23 @@ def TiedEMalgorithm(X, gmm):
             gmm[g] = (w[g], mu[:, g].reshape((mu.shape[0], 1)), cov[g])
         # Compute the new log densities and the new sub-class conditional densities
         (logdens, S) = logpdf_GMM(X, gmm)
-        loglikelihood2 = numpy.sum(logdens)/X.shape[1]
-        if (loglikelihood2-loglikelihood1 < 10**(-6)):
+        LLR2 = numpy.sum(logdens)/X.shape[1]
+        if (LLR2-LLR1 < 10**(-6)):
             flag = False
-        # if (loglikelihood2-loglikelihood1 < 0):
-        #     print("ERROR, LOG-LIKELIHOOD IS NOT INCREASING")
-    
     return gmm
 
 def TiedMstep(X, S, posterior):
     psi = 0.01
-    # M-step: update the model parameters.
+
     Zg = numpy.sum(posterior, axis=1)  # 3
-    # print(Zg)
-    # Fg = np.array([np.sum(posterior[0, :].reshape(1, posterior.shape[1])* X, axis=1), np.sum(posterior[1, :].reshape(1, posterior.shape[1])* X, axis=1), np.sum(posterior[2, :].reshape(1, posterior.shape[1])*X, axis=1)])
-    # print(Fg)
+  
     Fg = numpy.zeros((X.shape[0], S.shape[0]))  # 4x3
     for g in range(S.shape[0]):
         tempSum = numpy.zeros(X.shape[0])
         for i in range(X.shape[1]):
             tempSum += posterior[g, i] * X[:, i]
         Fg[:, g] = tempSum
-    # print(Fg)
+
     Sg = numpy.zeros((S.shape[0], X.shape[0], X.shape[0]))
     for g in range(S.shape[0]):
         tempSum = numpy.zeros((X.shape[0], X.shape[0]))
@@ -60,16 +49,15 @@ def TiedMstep(X, S, posterior):
             tempSum += posterior[g, i] * numpy.dot(X[:, i].reshape(
                 (X.shape[0], 1)), X[:, i].reshape((1, X.shape[0])))
         Sg[g] = tempSum
-    # print(Sg)
+
     mu = Fg / Zg
     prodmu = numpy.zeros((S.shape[0], X.shape[0], X.shape[0]))
     for g in range(S.shape[0]):
         prodmu[g] = numpy.dot(mu[:, g].reshape((X.shape[0], 1)),
                            mu[:, g].reshape((1, X.shape[0])))
-    # print(prodmu)
-    # print(np.dot(mu, mu.T).reshape((1, mu.shape[0], mu.shape[0]))) NO, it is wrong
+
     cov = Sg / Zg.reshape((Zg.size, 1, 1)) - prodmu
-    # The following two lines of code are used to model the constraints
+
     tsum = numpy.zeros((cov.shape[1], cov.shape[2]))
     for g in range(S.shape[0]):
         tsum += Zg[g]*cov[g]
@@ -79,22 +67,18 @@ def TiedMstep(X, S, posterior):
         U, s, Vh = numpy.linalg.svd(cov[g])
         s[s < psi] = psi
         cov[g] = numpy.dot(U, mcol(s)*U.T)
-    # print(cov)
+
     w = Zg/numpy.sum(Zg)
-    # print(w)
     return (w, mu, cov)
 
 
 def LBTiedCov(x,gmm,alpha,iterations,minEigen):
     psi = minEigen
     gmmDiag = [(gmm[0][0],gmm[0][1],computeNewCovar(gmm[0][2],psi))]
-    # gmmDiag = CovMatrixTied(gmmDiag,sigma)
 
     for i in range(iterations):
-        # gmmResult = EMAlgorithm(x,newGMM) # the first
-        # newGMM = SplitGMM(gmmResult,alpha)
+      
         gmmDiag = SplitGMM(gmmDiag,alpha)
-        # gmmDiag = CovMatrixTied(gmmDiag,sigma)
         gmmDiag = TiedEMalgorithm(x,gmmDiag)
 
     return gmmDiag
@@ -108,12 +92,9 @@ def CovMatrixTied(gmmDiag,sigma):
 
 def KFoldValidationTiedGMMCovariance(D,L,alpha,minEigen,gmms):
     K = 8 
-    # N = int(D.shape[1]/K)
-
 
     N = int(D.shape[1]/K)       
 
-    nWrongPrediction = 0
     numpy.random.seed(0)
     indexes = numpy.random.permutation(D.shape[1])
     errorRates=[]
